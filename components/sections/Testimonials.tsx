@@ -1,0 +1,50 @@
+'use client'
+
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
+import { testimonials } from '@/content/testimonials'
+
+export default function Testimonials() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+
+  return (
+    <section id="testimonials" className="py-20 px-6 max-w-6xl mx-auto" ref={ref}>
+      <motion.div initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
+        <p className="rn-label">Testimonials</p>
+        <h2 className="rn-title">What Clients Say</h2>
+      </motion.div>
+
+      <div className="grid md:grid-cols-3 gap-5">
+        {testimonials.map((t, i) => (
+          <motion.div key={i} className="rn-card flex flex-col p-6"
+            initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: i * 0.1 }}>
+            {/* Stars */}
+            <div className="flex gap-1 mb-4">
+              {[...Array(5)].map((_, j) => (
+                <svg key={j} width="13" height="13" viewBox="0 0 24 24" fill="#fa5252">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              ))}
+            </div>
+            <p className="text-sm leading-relaxed flex-1 italic mb-5" style={{ color: 'var(--color-muted)' }}>
+              &ldquo;{t.quote}&rdquo;
+            </p>
+            <div className="flex items-center gap-3 pt-4 border-t" style={{ borderColor: 'var(--color-border)' }}>
+              <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+                style={{ background: 'linear-gradient(to right, #fa5252, #dd2476)' }}>
+                {t.name[0]}
+              </div>
+              <div>
+                <p className="text-sm font-semibold" style={{ color: 'var(--color-fg)' }}>{t.name}</p>
+                <p className="text-xs" style={{ color: 'var(--color-muted)' }}>{t.role} @ {t.company}</p>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  )
+}

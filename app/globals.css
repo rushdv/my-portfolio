@@ -1,26 +1,161 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+/* ── Dark mode override ── */
+html.dark {
+  --color-bg:     #212428;
+  --color-card:   #1e2125;
+  --color-inner:  #191b1e;
+  --color-fg:     #ffffff;
+  --color-muted:  #a0a6b1;
+  --color-border: rgba(255,255,255,0.07);
+  --shadow-card:  0 20px 48px rgba(0,0,0,0.45);
+  --shadow-sm:    0 8px 24px rgba(0,0,0,0.3);
+}
+
+/* ── Light mode (default) ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg:     #f0f2f5;
+  --color-card:   #ffffff;
+  --color-inner:  #f7f8fa;
+  --color-fg:     #190d26;
+  --color-muted:  #65676b;
+  --color-border: rgba(0,0,0,0.08);
+  --shadow-card:  0 20px 48px rgba(0,0,0,0.10);
+  --shadow-sm:    0 8px 24px rgba(0,0,0,0.08);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
+
+::selection { background: #fa5252; color: #fff; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: rgba(128,128,128,0.3); border-radius: 3px; }
+
+/* ── Gradient text ── */
+.grad-text {
+  background: linear-gradient(to right, #fa5252, #dd2476);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Section label ── */
+.rn-label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fa5252;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* ── Section title ── */
+.rn-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-fg);
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+  position: relative;
+}
+.rn-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 50px; height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(to right, #fa5252, #dd2476);
+}
+
+/* ── Inner card with gradient border hover ── */
+.rn-card {
+  background-color: var(--color-inner);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+.rn-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-sm);
+  background:
+    linear-gradient(var(--color-inner), var(--color-inner)) padding-box,
+    linear-gradient(135deg, #fa5252, #dd2476) border-box;
+  border: 1px solid transparent;
+}
+
+/* ── Gradient button ── */
+.btn-grad {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(to right, #fa5252, #dd2476);
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.btn-grad:hover { opacity: 0.85; }
+
+/* ── Outline button ── */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: var(--color-fg);
+  border: 2px solid var(--color-border);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-outline:hover {
+  border-color: #fa5252;
+  background: rgba(250,82,82,0.06);
+}
+
+/* ── Tag ── */
+.rn-tag {
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: rgba(250,82,82,0.1);
+  color: #fa5252;
+  border: 1px solid rgba(250,82,82,0.2);
+  font-weight: 500;
+}
+
+/* ── Form input ── */
+.rn-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background-color: var(--color-inner);
+  border: 1px solid var(--color-border);
+  color: var(--color-fg);
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+.rn-input:focus { border-color: rgba(250,82,82,0.5); }
+.rn-input::placeholder { color: var(--color-muted); }
