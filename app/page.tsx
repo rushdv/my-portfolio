@@ -9,7 +9,7 @@ import Contact from '@/components/sections/Contact'
 
 export default function Home() {
   return (
-    <main className="pt-16 overflow-x-hidden">
+    <main className="pt-16">
       <Hero />
       <About />
       <Skills />

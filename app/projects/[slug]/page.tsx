@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { Github, ExternalLink, ArrowLeft } from 'lucide-react'
+import { ExternalLink, ArrowLeft } from 'lucide-react'
+import { GithubIcon } from '@/components/icons/SocialIcons'
 import { projects } from '@/content/projects'
 
 export function generateStaticParams() {
@@ -53,7 +54,7 @@ export default async function ProjectPage(props: PageProps<'/projects/[slug]'>) 
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[var(--border)] text-[var(--fg)] text-sm hover:bg-[var(--card)] transition-colors"
           >
-            <Github size={15} />
+            <GithubIcon size={15} />
             View Code
           </a>
         )}

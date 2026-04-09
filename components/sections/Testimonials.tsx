@@ -10,8 +10,7 @@ export default function Testimonials() {
 
   return (
     <section id="testimonials" className="py-20 px-6 max-w-6xl mx-auto" ref={ref}>
-      <motion.div initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
+      <motion.div initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
         <p className="rn-label">Testimonials</p>
         <h2 className="rn-title">What Clients Say</h2>
       </motion.div>
@@ -19,9 +18,8 @@ export default function Testimonials() {
       <div className="grid md:grid-cols-3 gap-5">
         {testimonials.map((t, i) => (
           <motion.div key={i} className="rn-card flex flex-col p-6"
-            initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: i * 0.1 }}>
-            {/* Stars */}
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}>
             <div className="flex gap-1 mb-4">
               {[...Array(5)].map((_, j) => (
                 <svg key={j} width="13" height="13" viewBox="0 0 24 24" fill="#fa5252">
@@ -29,17 +27,17 @@ export default function Testimonials() {
                 </svg>
               ))}
             </div>
-            <p className="text-sm leading-relaxed flex-1 italic mb-5" style={{ color: 'var(--color-muted)' }}>
+            <p className="text-sm leading-relaxed flex-1 italic mb-5" style={{ color: 'var(--muted)' }}>
               &ldquo;{t.quote}&rdquo;
             </p>
-            <div className="flex items-center gap-3 pt-4 border-t" style={{ borderColor: 'var(--color-border)' }}>
+            <div className="flex items-center gap-3 pt-4" style={{ borderTop: '1px solid var(--border)' }}>
               <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
                 style={{ background: 'linear-gradient(to right, #fa5252, #dd2476)' }}>
                 {t.name[0]}
               </div>
               <div>
-                <p className="text-sm font-semibold" style={{ color: 'var(--color-fg)' }}>{t.name}</p>
-                <p className="text-xs" style={{ color: 'var(--color-muted)' }}>{t.role} @ {t.company}</p>
+                <p className="text-sm font-semibold" style={{ color: 'var(--fg)' }}>{t.name}</p>
+                <p className="text-xs" style={{ color: 'var(--muted)' }}>{t.role} @ {t.company}</p>
               </div>
             </div>
           </motion.div>

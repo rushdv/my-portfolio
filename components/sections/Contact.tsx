@@ -36,20 +36,17 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-20 px-6 max-w-6xl mx-auto" ref={ref}>
-      <motion.div initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
+      <motion.div initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
         <p className="rn-label">Contact</p>
         <h2 className="rn-title">Contact With Me</h2>
       </motion.div>
 
       <div className="grid md:grid-cols-2 gap-10">
-        {/* Left */}
         <motion.div initial={{ opacity: 0, x: -24 }} animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }} className="flex flex-col gap-4">
-          <p className="text-sm leading-relaxed" style={{ color: 'var(--color-muted)' }}>
+          <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
             I am available for freelance work. Connect with me via phone or email and let&apos;s build something great together.
           </p>
-
           {contactInfo.map(({ icon: Icon, label, value }) => (
             <div key={label} className="rn-card flex items-center gap-4 p-4">
               <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -57,23 +54,20 @@ export default function Contact() {
                 <Icon size={17} color="#fa5252" />
               </div>
               <div>
-                <p className="text-xs mb-0.5" style={{ color: 'var(--color-muted)' }}>{label}</p>
-                <p className="text-sm font-semibold" style={{ color: 'var(--color-fg)' }}>{value}</p>
+                <p className="text-xs mb-0.5" style={{ color: 'var(--muted)' }}>{label}</p>
+                <p className="text-sm font-semibold" style={{ color: 'var(--fg)' }}>{value}</p>
               </div>
             </div>
           ))}
-
-          <div className="mt-1">
-            <p className="text-xs uppercase tracking-widest font-semibold mb-3" style={{ color: 'var(--color-muted)' }}>
-              Find me on
-            </p>
+          <div>
+            <p className="text-xs uppercase tracking-widest font-semibold mb-3" style={{ color: 'var(--muted)' }}>Find me on</p>
             <div className="flex gap-2">
               {socials.map(({ icon: Icon, href, label }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                  className="w-10 h-10 flex items-center justify-center rounded-lg border no-underline transition-all duration-200"
-                  style={{ borderColor: 'var(--color-border)', color: 'var(--color-muted)' }}
+                  className="w-10 h-10 flex items-center justify-center rounded-lg no-underline transition-all duration-200"
+                  style={{ border: '1px solid var(--border)', color: 'var(--muted)' }}
                   onMouseEnter={e => { const el = e.currentTarget; el.style.background = 'linear-gradient(to right,#fa5252,#dd2476)'; el.style.borderColor = 'transparent'; el.style.color = '#fff' }}
-                  onMouseLeave={e => { const el = e.currentTarget; el.style.background = 'transparent'; el.style.borderColor = 'var(--color-border)'; el.style.color = 'var(--color-muted)' }}>
+                  onMouseLeave={e => { const el = e.currentTarget; el.style.background = 'transparent'; el.style.borderColor = 'var(--border)'; el.style.color = 'var(--muted)' }}>
                   <Icon size={16} />
                 </a>
               ))}
@@ -81,14 +75,13 @@ export default function Contact() {
           </div>
         </motion.div>
 
-        {/* Right — form */}
         <motion.div initial={{ opacity: 0, x: 24 }} animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.15 }}>
           {status === 'success' ? (
             <div className="rn-card flex flex-col items-center justify-center gap-3 text-center p-10 min-h-[300px]">
               <CheckCircle size={48} color="#22c55e" />
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--color-fg)' }}>Message Sent!</h3>
-              <p className="text-sm" style={{ color: 'var(--color-muted)' }}>I&apos;ll get back to you within 24 hours.</p>
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>Message Sent!</h3>
+              <p className="text-sm" style={{ color: 'var(--muted)' }}>I&apos;ll get back to you within 24 hours.</p>
               <button onClick={() => setStatus('idle')} className="btn-grad mt-2">Send Another</button>
             </div>
           ) : (

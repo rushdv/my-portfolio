@@ -1,5 +1,7 @@
 import { Star, Users, BookOpen } from 'lucide-react'
 import { GithubIcon } from '@/components/icons/SocialIcons'
+import SectionHeading from '@/components/ui/SectionHeading'
+import * as S from '@/lib/styles'
 
 async function fetchStats() {
   try {
@@ -23,28 +25,26 @@ export default async function GitHubStats() {
   ]
 
   return (
-    <section className="py-20 px-6 max-w-6xl mx-auto">
-      <div className="flex items-center gap-3 mb-8">
+    <section style={{ padding: '80px 24px', maxWidth: 1100, margin: '0 auto' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
         <GithubIcon size={22} />
-        <h2 className="rn-title !mb-0 !pb-0 after:hidden" style={{ color: 'var(--color-fg)' }}>
-          GitHub Activity
-        </h2>
+        <SectionHeading label="" title="GitHub Activity" />
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 24 }}>
         {stats.map(({ icon: Icon, label, value }) => (
-          <div key={label} className="rn-card p-5 text-center">
-            <Icon size={20} color="#fa5252" className="mx-auto mb-2" />
-            <div className="text-2xl font-extrabold" style={{ color: 'var(--color-fg)' }}>{value}</div>
-            <div className="text-xs mt-1" style={{ color: 'var(--color-muted)' }}>{label}</div>
+          <div key={label} style={{ ...S.card, padding: 20, textAlign: 'center' }}>
+            <Icon size={20} color="#fa5252" style={{ margin: '0 auto 10px', display: 'block' }} />
+            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--fg)' }}>{value}</div>
+            <div style={{ fontSize: '0.72rem', color: 'var(--muted)', marginTop: 4 }}>{label}</div>
           </div>
         ))}
       </div>
 
-      <div className="rounded-xl overflow-hidden">
+      <div style={{ borderRadius: 12, overflow: 'hidden' }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={`https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=transparent&hide_border=true&title_color=fa5252&icon_color=fa5252&text_color=a0a6b1&bg_color=00000000`}
-          alt="GitHub Stats" className="w-full" />
+        <img src={`https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=transparent&hide_border=true&title_color=fa5252&icon_color=fa5252&text_color=9ca3af&bg_color=00000000`}
+          alt="GitHub Stats" style={{ width: '100%' }} />
       </div>
     </section>
   )

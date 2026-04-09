@@ -10,20 +10,21 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="border-t py-8 px-6 mt-4" style={{ background: 'var(--color-card)', borderColor: 'var(--color-border)' }}>
-      <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
-        <p className="text-sm" style={{ color: 'var(--color-muted)' }}>
+    <footer style={{ background: 'var(--card)', borderTop: '1px solid var(--border)', padding: '32px 24px', marginTop: 8 }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+        <p style={{ fontSize: '0.875rem', color: 'var(--muted)' }}>
           © {new Date().getFullYear()}{' '}
-          <span className="grad-text font-bold">Your Name</span>
+          <span style={{ background: 'linear-gradient(to right, #fa5252, #dd2476)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontWeight: 700 }}>
+            Your Name
+          </span>
           {' '}— All rights reserved.
         </p>
-        <div className="flex gap-2">
+        <div style={{ display: 'flex', gap: 8 }}>
           {socials.map(({ icon: Icon, href, label }) => (
             <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-              className="w-9 h-9 flex items-center justify-center rounded-lg border transition-all duration-200 no-underline"
-              style={{ borderColor: 'var(--color-border)', color: 'var(--color-muted)' }}
+              style={{ width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 8, border: '1px solid var(--border)', color: 'var(--muted)', textDecoration: 'none', transition: 'all 0.2s' }}
               onMouseEnter={e => { const el = e.currentTarget; el.style.background = 'linear-gradient(to right,#fa5252,#dd2476)'; el.style.borderColor = 'transparent'; el.style.color = '#fff' }}
-              onMouseLeave={e => { const el = e.currentTarget; el.style.background = 'transparent'; el.style.borderColor = 'var(--color-border)'; el.style.color = 'var(--color-muted)' }}>
+              onMouseLeave={e => { const el = e.currentTarget; el.style.background = 'transparent'; el.style.borderColor = 'var(--border)'; el.style.color = 'var(--muted)' }}>
               <Icon size={15} />
             </a>
           ))}

@@ -25,47 +25,51 @@ export default function Navbar() {
   }, [])
 
   return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? 'border-b shadow-sm' : ''}`}
-      style={{ background: 'var(--color-card)', borderColor: 'var(--color-border)', backdropFilter: 'blur(12px)' }}>
-      <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="grad-text font-bold text-lg no-underline">
+    <header style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+      background: 'var(--card)',
+      borderBottom: `1px solid ${scrolled ? 'var(--border)' : 'transparent'}`,
+      backdropFilter: 'blur(12px)',
+      boxShadow: scrolled ? 'var(--sh)' : 'none',
+      transition: 'all 0.3s',
+    }}>
+      <nav style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Link href="/" style={{ fontWeight: 700, fontSize: '1.1rem', textDecoration: 'none', background: 'linear-gradient(to right, #fa5252, #dd2476)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
           &lt;YourName /&gt;
         </Link>
 
-        <ul className="hidden md:flex gap-1 list-none">
+        <ul style={{ display: 'flex', gap: 4, listStyle: 'none', margin: 0, padding: 0 }} className="hidden md:flex">
           {links.map((l) => (
             <li key={l.href}>
-              <a href={l.href}
-                className="px-3 py-2 rounded-lg text-sm no-underline transition-colors duration-200 block"
-                style={{ color: 'var(--color-muted)' }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-fg)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-muted)')}>
+              <a href={l.href} style={{ padding: '6px 12px', borderRadius: 6, color: 'var(--muted)', fontSize: '0.875rem', textDecoration: 'none', display: 'block', transition: 'color 0.2s' }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--fg)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'var(--muted)')}>
                 {l.label}
               </a>
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <ThemeToggle />
           <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
-            className="btn-grad hidden md:inline-flex !py-2 !px-4 !text-xs">
+            style={{ display: 'none', alignItems: 'center', gap: 6, padding: '8px 18px', borderRadius: 8, fontSize: '0.8rem', fontWeight: 600, background: 'linear-gradient(to right, #fa5252, #dd2476)', color: '#fff', textDecoration: 'none' }}
+            className="md:!inline-flex">
             Resume
           </a>
-          <button className="md:hidden p-1 rounded" onClick={() => setOpen(!open)} aria-label="Toggle menu"
-            style={{ background: 'none', border: 'none', color: 'var(--color-muted)', cursor: 'pointer' }}>
+          <button onClick={() => setOpen(!open)} aria-label="Toggle menu"
+            style={{ background: 'none', border: 'none', color: 'var(--muted)', cursor: 'pointer', padding: 4 }}
+            className="md:hidden">
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </nav>
 
       {open && (
-        <div className="md:hidden px-6 pb-4 flex flex-col gap-1 border-t"
-          style={{ background: 'var(--color-card)', borderColor: 'var(--color-border)' }}>
+        <div style={{ background: 'var(--card)', borderTop: '1px solid var(--border)', padding: '12px 24px 16px' }} className="md:hidden">
           {links.map((l) => (
             <a key={l.href} href={l.href} onClick={() => setOpen(false)}
-              className="px-3 py-2 rounded-lg text-sm no-underline"
-              style={{ color: 'var(--color-muted)' }}>
+              style={{ display: 'block', padding: '8px 12px', borderRadius: 6, color: 'var(--muted)', fontSize: '0.875rem', textDecoration: 'none' }}>
               {l.label}
             </a>
           ))}
