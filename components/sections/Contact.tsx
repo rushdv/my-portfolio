@@ -7,13 +7,13 @@ import { GithubIcon, LinkedinIcon } from '@/components/icons/SocialIcons'
 
 const contactInfo = [
   { icon: Phone, label: 'Phone', value: '+880 1234 567890', color: 'var(--dev)' },
-  { icon: Mail, label: 'Email', value: 'your@email.com', color: 'var(--dev)' },
-  { icon: MapPin, label: 'Location', value: 'Dhaka, Bangladesh', color: 'var(--sec)' },
+  { icon: Mail, label: 'Email', value: 'shihab.zn4@gmail.com', color: 'var(--dev)' },
+  { icon: MapPin, label: 'Location', value: 'Bangladesh', color: 'var(--sec)' },
 ]
 
 const socials = [
-  { icon: GithubIcon, href: 'https://github.com/username', label: 'GitHub', color: 'var(--dev)' },
-  { icon: LinkedinIcon, href: 'https://linkedin.com/in/username', label: 'LinkedIn', color: 'var(--dev)' },
+  { icon: GithubIcon, href: 'https://github.com/rushdv', label: 'GitHub', color: 'var(--dev)' },
+  { icon: LinkedinIcon, href: 'https://www.linkedin.com/in/shihab-shahriar-rashu-431a3a217/', label: 'LinkedIn', color: 'var(--dev)' },
 ]
 
 export default function Contact() {

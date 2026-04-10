@@ -8,25 +8,25 @@ import { projects } from '@/content/projects'
 
 const securityProjects = [
   {
-    title: 'Web App Pentest Report',
-    description: 'Full penetration test of a vulnerable web application. Found 12 critical vulnerabilities including SQLi, XSS, and IDOR.',
-    tags: ['OWASP', 'Burp Suite', 'SQLMap'],
+    title: 'NetScope-Live',
+    description: 'Real-time network traffic visualizer. Uses Scapy for packet capture and WebSockets to stream live data to the React frontend.',
+    tags: ['Python', 'Scapy', 'WebSockets'],
     type: 'sec',
-    github: 'https://github.com/username/pentest-report',
+    github: 'https://github.com/rushdv/NetScope-Live',
   },
   {
-    title: 'CTF Writeups',
-    description: 'Collection of CTF challenge writeups from HackTheBox and TryHackMe. 50+ machines pwned.',
-    tags: ['HackTheBox', 'TryHackMe', 'Privilege Escalation'],
-    type: 'sec',
-    live: 'https://ctf.yourname.dev',
-  },
-  {
-    title: 'Network Scanner Tool',
-    description: 'Custom Python tool for network reconnaissance and vulnerability scanning.',
-    tags: ['Python', 'Nmap', 'Scapy'],
+    title: 'Encrypted Password Manager',
+    description: 'CLI password manager demonstrating encryption best practices using Python\'s cryptography library. Stores credentials securely with AES encryption.',
+    tags: ['Python', 'Cryptography', 'AES', 'CLI'],
     type: 'danger',
-    github: 'https://github.com/username/net-scanner',
+    github: 'https://github.com/rushdv/encrypted-password-manager',
+  },
+  {
+    title: 'SecurePass Manager',
+    description: 'React-based password manager with client-side encryption, a clean UI, and smooth animations. No data leaves the browser.',
+    tags: ['React', 'CryptoJS', 'Security'],
+    type: 'sec',
+    github: 'https://github.com/rushdv/securepass',
   },
 ]
 

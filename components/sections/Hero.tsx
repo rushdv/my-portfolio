@@ -5,12 +5,12 @@ import { ArrowDown, Terminal } from 'lucide-react'
 import { GithubIcon, LinkedinIcon, TwitterXIcon } from '@/components/icons/SocialIcons'
 
 const socials = [
-  { icon: GithubIcon, href: 'https://github.com/username', label: 'GitHub' },
-  { icon: LinkedinIcon, href: 'https://linkedin.com/in/username', label: 'LinkedIn' },
-  { icon: TwitterXIcon, href: 'https://twitter.com/username', label: 'Twitter' },
+  { icon: GithubIcon, href: 'https://github.com/rushdv', label: 'GitHub' },
+  { icon: LinkedinIcon, href: 'https://www.linkedin.com/in/shihab-shahriar-rashu-431a3a217/', label: 'LinkedIn' },
+  { icon: TwitterXIcon, href: 'https://twitter.com/rushdv313/', label: 'Twitter' },
 ]
 
-const devTags = ['React / Node.js', 'Next.js', 'TypeScript']
+const devTags = ['React / Node.js', 'Next.js', 'Python / FastAPI']
 const secTags = ['CEH', 'Pentesting', 'CTF Player']
 
 const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } }
@@ -49,7 +49,7 @@ export default function Hero() {
           {/* Main heading */}
           <motion.div variants={item}>
             <h1 className="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight" style={{ color: 'var(--foreground)', fontFamily: 'system-ui, sans-serif' }}>
-              Full-Stack Developer
+              <span className="grad-dev">Shihab Shahriar</span>
               <br />
               <span className="grad-sec">&amp; Security Researcher</span>
             </h1>
@@ -57,9 +57,9 @@ export default function Hero() {
 
           {/* Tagline */}
           <motion.p variants={item} className="text-base leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
-            I build secure web applications and break them ethically.
+            Building secure, scalable web applications with a focus on clean architecture
             <br />
-            Specializing in modern web stacks and penetration testing.
+            and performance-first engineering.
           </motion.p>
 
           {/* Dual tags */}

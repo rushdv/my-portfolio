@@ -3,9 +3,9 @@
 import { GithubIcon, LinkedinIcon, TwitterXIcon } from '@/components/icons/SocialIcons'
 
 const socials = [
-  { icon: GithubIcon, href: 'https://github.com/username', label: 'GitHub' },
-  { icon: LinkedinIcon, href: 'https://linkedin.com/in/username', label: 'LinkedIn' },
-  { icon: TwitterXIcon, href: 'https://twitter.com/username', label: 'Twitter' },
+  { icon: GithubIcon, href: 'https://github.com/rushdv', label: 'GitHub' },
+  { icon: LinkedinIcon, href: 'https://www.linkedin.com/in/shihab-shahriar-rashu-431a3a217/', label: 'LinkedIn' },
+  { icon: TwitterXIcon, href: 'https://twitter.com/rushdv313/', label: 'Twitter' },
 ]
 
 export default function Footer() {

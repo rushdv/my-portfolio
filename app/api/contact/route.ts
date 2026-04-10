@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: 'Portfolio <onboarding@resend.dev>',
-      to: ['your@email.com'],
+      to: ['shihab.zn4@gmail.com'],
       subject: `New message from ${name}`,
       text: `From: ${name} <${email}>\n\n${message}`,
     }),

@@ -6,7 +6,7 @@ import { Download, MapPin, Shield, Code2 } from 'lucide-react'
 
 const stats = [
   { value: '3+', label: 'Years Dev', color: 'var(--dev)' },
-  { value: '20+', label: 'Projects', color: 'var(--dev)' },
+  { value: '70+', label: 'Repos', color: 'var(--dev)' },
   { value: 'CEH', label: 'Certified', color: 'var(--sec)' },
 ]
 
@@ -31,14 +31,15 @@ export default function About() {
             className="portfolio-card w-full max-w-[280px] aspect-square flex items-center justify-center overflow-hidden"
             style={{ borderRadius: 16 }}
           >
-            <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Add /public/avatar.jpg</span>
+            {/* Replace with: <Image src="/shihab.jpg" alt="Shihab" fill className="object-cover" /> */}
+            <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Add /public/shihab.jpg</span>
           </div>
           <div
             className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap"
             style={{ background: 'rgba(34,197,94,0.1)', color: 'var(--sec)', border: '1px solid rgba(34,197,94,0.3)', fontFamily: 'ui-monospace, monospace' }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-            Available for hire
+            Open to opportunities
           </div>
         </motion.div>
 
@@ -48,20 +49,20 @@ export default function About() {
           className="flex flex-col gap-5"
         >
           <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--muted-foreground)' }}>
-            <MapPin size={14} style={{ color: 'var(--dev)' }} /> Dhaka, Bangladesh
+            <MapPin size={14} style={{ color: 'var(--dev)' }} /> Bangladesh
           </div>
 
           <div className="flex items-start gap-3 p-4 rounded-lg" style={{ background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.1)' }}>
             <Code2 size={16} style={{ color: 'var(--dev)', marginTop: 2, flexShrink: 0 }} />
             <p className="text-sm leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
-              Full-stack developer with 3+ years building production-grade web apps. Specialize in React, Next.js, and Node.js.
+              Full-Stack Developer and Computer Science student based in Bangladesh, focused on building web applications that are fast, secure, and maintainable. My work spans React to Node.js, FastAPI, and PostgreSQL.
             </p>
           </div>
 
           <div className="flex items-start gap-3 p-4 rounded-lg" style={{ background: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.1)' }}>
             <Shield size={16} style={{ color: 'var(--sec)', marginTop: 2, flexShrink: 0 }} />
             <p className="text-sm leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
-              CEH certified security researcher. Conduct penetration testing, CTF competitions, and vulnerability research.
+              CEH certified with hands-on experience in penetration testing and network security. I bring a security mindset to everything I build.
             </p>
           </div>
 
