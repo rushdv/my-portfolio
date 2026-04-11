@@ -5,14 +5,16 @@ import { motion, useInView } from 'framer-motion'
 import { ExternalLink, ArrowRight, Shield } from 'lucide-react'
 import { GithubIcon } from '@/components/icons/SocialIcons'
 import { projects } from '@/content/projects'
+import Image from 'next/image'
 
-const securityProjects = [
+const securityProjects: { title: string; description: string; tags: string[]; type: string; github?: string; live?: string }[] = [
   {
     title: 'NetScope-Live',
     description: 'Real-time network traffic visualizer. Uses Scapy for packet capture and WebSockets to stream live data to the React frontend.',
     tags: ['Python', 'Scapy', 'WebSockets'],
     type: 'sec',
     github: 'https://github.com/rushdv/NetScope-Live',
+    
   },
   {
     title: 'Encrypted Password Manager',
@@ -77,8 +79,13 @@ export default function Projects() {
               initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08 }}
             >
-              <div className="h-36 flex items-center justify-center" style={{ background: 'rgba(56,189,248,0.04)', borderBottom: '1px solid var(--border)' }}>
-                <span className="text-3xl font-bold" style={{ color: 'rgba(56,189,248,0.3)', fontFamily: 'ui-monospace, monospace' }}>{'{ }'}</span>
+              <div className="h-36 relative flex items-center justify-center overflow-hidden" style={{ background: 'rgba(56,189,248,0.04)', borderBottom: '1px solid var(--border)' }}>
+                {p.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={p.image} alt={p.title} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-3xl font-bold" style={{ color: 'rgba(56,189,248,0.3)', fontFamily: 'ui-monospace, monospace' }}>{'{ }'}</span>
+                )}
               </div>
               <div className="flex flex-col flex-1 p-5">
                 <h3 className="font-bold text-sm mb-2" style={{ color: 'var(--foreground)' }}>{p.title}</h3>

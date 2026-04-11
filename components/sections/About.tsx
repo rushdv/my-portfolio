@@ -52,10 +52,20 @@ export default function About() {
             <MapPin size={14} style={{ color: 'var(--dev)' }} /> Bangladesh
           </div>
 
+          {/* Name */}
+          <div>
+            <h3 className="text-3xl font-extrabold" style={{ color: 'var(--foreground)', fontFamily: 'system-ui, sans-serif' }}>
+              Shihab Shahriar Rashu
+            </h3>
+            <p className="text-sm mt-1" style={{ color: 'var(--muted-foreground)' }}>
+              Full-Stack Developer &amp; Security Researcher
+            </p>
+          </div>
+
           <div className="flex items-start gap-3 p-4 rounded-lg" style={{ background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.1)' }}>
             <Code2 size={16} style={{ color: 'var(--dev)', marginTop: 2, flexShrink: 0 }} />
             <p className="text-sm leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
-              Full-Stack Developer and Computer Science student based in Bangladesh, focused on building web applications that are fast, secure, and maintainable. My work spans React to Node.js, FastAPI, and PostgreSQL.
+              I&apos;m a Full-Stack Developer and Computer Science student based in Bangladesh. I focus on building web applications that are fast, secure, and maintainable. My work spans React to Node.js, FastAPI, and PostgreSQL.
             </p>
           </div>
 

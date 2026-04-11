@@ -49,7 +49,7 @@ export default function Hero() {
           {/* Main heading */}
           <motion.div variants={item}>
             <h1 className="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight" style={{ color: 'var(--foreground)', fontFamily: 'system-ui, sans-serif' }}>
-              <span className="grad-dev">Shihab Shahriar</span>
+              <span className="grad-dev">Full Stack Developer </span>
               <br />
               <span className="grad-sec">&amp; Security Researcher</span>
             </h1>

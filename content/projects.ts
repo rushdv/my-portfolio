@@ -8,6 +8,7 @@ export const projects: Project[] = [
     tags: ['React', 'FastAPI', 'PostgreSQL', 'Tailwind CSS'],
     github: 'https://github.com/rushdv/muhasabah',
     live: 'https://muhasabah.vercel.app',
+    image: '/projects/muhasabah.png',
     featured: true,
   },
   {
@@ -16,6 +17,7 @@ export const projects: Project[] = [
     description: 'Real-time network traffic visualizer with an interactive dashboard. Uses Scapy for packet capture and WebSockets to stream live data to the React frontend.',
     tags: ['Python', 'Scapy', 'React', 'WebSockets'],
     github: 'https://github.com/rushdv/NetScope-Live',
+    image: '/projects/NetScope-live.png',
     featured: true,
   },
   {
@@ -24,6 +26,7 @@ export const projects: Project[] = [
     description: 'Scalable social media application with a focus on performance and clean component architecture. Supports real-time interactions and a responsive feed.',
     tags: ['React', 'Vite', 'Tailwind CSS', 'DaisyUI'],
     github: 'https://github.com/rushdv/nexum',
+    image: '/projects/nexum.png',
     featured: true,
   },
   {
@@ -41,6 +44,7 @@ export const projects: Project[] = [
     tags: ['React', 'Vite', 'Vercel'],
     github: 'https://github.com/rushdv/brain-vault',
     live: 'https://brain-vault-iota.vercel.app',
+    image: '/projects/brainvault.png',
     featured: false,
   },
   {
