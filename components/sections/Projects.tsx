@@ -1,11 +1,10 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ExternalLink, ArrowRight, Shield } from 'lucide-react'
 import { GithubIcon } from '@/components/icons/SocialIcons'
 import { projects } from '@/content/projects'
-import Image from 'next/image'
 
 const securityProjects: { title: string; description: string; tags: string[]; type: string; github?: string; live?: string }[] = [
   {
@@ -37,8 +36,21 @@ export default function Projects() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
+  // Switch to security tab when #security hash is in URL
+  useEffect(() => {
+    const check = () => {
+      if (window.location.hash === '#security') setTab('sec')
+      else if (window.location.hash === '#projects') setTab('dev')
+    }
+    check()
+    window.addEventListener('hashchange', check)
+    return () => window.removeEventListener('hashchange', check)
+  }, [])
+
   return (
     <section id="projects" className="py-20 px-6 max-w-6xl mx-auto" ref={ref}>
+      {/* Anchor for #security hash */}
+      <div id="security" style={{ position: 'absolute', marginTop: -64 }} />
       <motion.div initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
         <p className={`section-label ${tab}`}>Portfolio</p>
         <h2 className={`section-title ${tab}`}>

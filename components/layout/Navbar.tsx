@@ -34,9 +34,10 @@ export default function Navbar() {
     <header
       className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? 'rgba(13,17,23,0.92)' : 'transparent',
+        background: scrolled ? 'var(--card)' : 'var(--background)',
         borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
         backdropFilter: 'blur(12px)',
+        boxShadow: scrolled ? 'var(--shadow)' : 'none',
       }}
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -91,7 +92,7 @@ export default function Navbar() {
       {open && (
         <div
           className="md:hidden px-6 pb-4 flex flex-col gap-1"
-          style={{ background: 'rgba(13,17,23,0.96)', borderTop: '1px solid var(--border)' }}
+          style={{ background: 'var(--card)', borderTop: '1px solid var(--border)' }}
         >
           {links.map((l) => (
             <a
