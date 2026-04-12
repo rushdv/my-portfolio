@@ -9,6 +9,7 @@ const links = [
   { href: '#about', label: 'About', type: 'neutral' },
   { href: '#projects', label: 'Projects', type: 'dev' },
   { href: '#security', label: 'Security', type: 'sec' },
+  { href: '#writeups', label: 'Writeups', type: 'sec' },
   { href: '#skills', label: 'Skills', type: 'neutral' },
   { href: '#experience', label: 'Experience', type: 'neutral' },
   { href: '#contact', label: 'Contact', type: 'neutral' },

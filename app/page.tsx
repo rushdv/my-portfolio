@@ -4,6 +4,8 @@ import Skills from '@/components/sections/Skills'
 import Experience from '@/components/sections/Experience'
 import Projects from '@/components/sections/Projects'
 import Certifications from '@/components/sections/Certifications'
+import GitHubActivity from '@/components/sections/GitHubActivity'
+import Writeups from '@/components/sections/Writeups'
 import Contact from '@/components/sections/Contact'
 
 export default function Home() {
@@ -15,6 +17,8 @@ export default function Home() {
       <Experience />
       <Projects />
       <Certifications />
+      <GitHubActivity />
+      <Writeups />
       <Contact />
     </main>
   )

@@ -2,8 +2,9 @@
 
 import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Mail, Phone, MapPin, CheckCircle, Terminal } from 'lucide-react'
+import { Mail, Phone, MapPin, CheckCircle, Terminal as TerminalIcon } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/icons/SocialIcons'
+import TerminalWidget from '@/components/ui/Terminal'
 
 const contactInfo = [
   { icon: Phone, label: 'Phone', value: '+880 1234 567890', color: 'var(--dev)' },
@@ -114,13 +115,25 @@ export default function Contact() {
               {status === 'error' && <p className="text-sm" style={{ color: 'var(--danger)' }}>Something went wrong. Try again.</p>}
               <button type="submit" disabled={status === 'loading'} className="btn-dev justify-center py-3"
                 style={{ opacity: status === 'loading' ? 0.6 : 1 }}>
-                <Terminal size={15} />
+                <TerminalIcon size={15} />
                 {status === 'loading' ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           )}
         </motion.div>
       </div>
+
+      {/* Interactive Terminal */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="mt-8"
+      >
+        <p className="text-xs uppercase tracking-widest font-bold mb-3" style={{ color: 'var(--dev)', fontFamily: 'ui-monospace, monospace' }}>
+          // Interactive Terminal — try: help, whoami, skills, security
+        </p>
+        <TerminalWidget />
+      </motion.div>
     </section>
   )
 }

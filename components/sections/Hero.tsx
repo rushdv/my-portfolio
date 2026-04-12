@@ -66,6 +66,13 @@ export default function Hero() {
           <motion.div variants={item} className="flex flex-wrap gap-2">
             {devTags.map((t) => <span key={t} className="tag-dev">{t}</span>)}
             {secTags.map((t) => <span key={t} className="tag-sec">{t}</span>)}
+            <span
+              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full"
+              style={{ background: 'rgba(247,129,102,0.1)', color: '#f78166', border: '1px solid rgba(247,129,102,0.25)', fontFamily: 'ui-monospace, monospace' }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#f78166' }} />
+              Learning: AWS + CEH
+            </span>
           </motion.div>
 
           {/* CTAs */}
