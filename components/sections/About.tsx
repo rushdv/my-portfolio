@@ -28,11 +28,11 @@ export default function About() {
           className="relative flex justify-center"
         >
           <div
-            className="portfolio-card w-full max-w-[280px] aspect-square flex items-center justify-center overflow-hidden"
+            className="portfolio-card w-full max-w-[280px] aspect-square overflow-hidden"
             style={{ borderRadius: 16 }}
           >
-            {/* Replace with: <Image src="/shihab.jpg" alt="Shihab" fill className="object-cover" /> */}
-            <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Add /public/shihab.jpg</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/shihab.jpg" alt="Shihab Shahriar Rashu" className="w-full h-full object-cover" />
           </div>
           <div
             className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap"
