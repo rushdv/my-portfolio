@@ -10,6 +10,10 @@ import BackToTop from '@/components/ui/BackToTop'
 export const metadata: Metadata = {
   title: 'Shihab Shahriar Rashu — Full Stack Developer & Security Researcher',
   description: 'Full-Stack Developer and Security Researcher based in Bangladesh. Building secure, scalable web applications with React, Node.js, Python, and FastAPI.',
+  icons: {
+    icon: '/shihab.jpg',
+    apple: '/shihab.jpg',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

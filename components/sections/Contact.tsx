@@ -2,19 +2,18 @@
 
 import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Mail, Phone, MapPin, CheckCircle, Terminal as TerminalIcon } from 'lucide-react'
+import { Mail, MapPin, CheckCircle2, Send } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/icons/SocialIcons'
 import TerminalWidget from '@/components/ui/Terminal'
 
 const contactInfo = [
-  { icon: Phone, label: 'Phone', value: '+880 1234 567890', color: 'var(--dev)' },
-  { icon: Mail, label: 'Email', value: 'shihab.zn4@gmail.com', color: 'var(--dev)' },
-  { icon: MapPin, label: 'Location', value: 'Bangladesh', color: 'var(--sec)' },
+  { icon: Mail, label: 'Email', value: 'shihab.zn4@gmail.com', href: 'mailto:shihab.zn4@gmail.com' },
+  { icon: MapPin, label: 'Location', value: 'Bangladesh 🇧🇩', href: null },
 ]
 
 const socials = [
-  { icon: GithubIcon, href: 'https://github.com/rushdv', label: 'GitHub', color: 'var(--dev)' },
-  { icon: LinkedinIcon, href: 'https://www.linkedin.com/in/shihab-shahriar-rashu-431a3a217/', label: 'LinkedIn', color: 'var(--dev)' },
+  { icon: GithubIcon, href: 'https://github.com/rushdv', label: 'GitHub' },
+  { icon: LinkedinIcon, href: 'https://www.linkedin.com/in/shihab-shahriar-rashu-431a3a217/', label: 'LinkedIn' },
 ]
 
 export default function Contact() {
@@ -36,57 +35,69 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 px-6 max-w-6xl mx-auto" ref={ref}>
-      <motion.div initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
+    <section id="contact" className="py-24 px-6 max-w-6xl mx-auto" ref={ref}>
+      <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55 }}>
         <p className="section-label dev">Contact</p>
         <h2 className="section-title dev">Get In Touch</h2>
       </motion.div>
 
       <div className="grid md:grid-cols-2 gap-10">
-        <motion.div initial={{ opacity: 0, x: -24 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }} className="flex flex-col gap-4">
+        {/* Left */}
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 }} className="flex flex-col gap-5">
 
-          {/* Terminal-style availability */}
-          <div className="portfolio-card p-4" style={{ fontFamily: 'ui-monospace, monospace' }}>
-            <div className="flex items-center gap-2 mb-2">
+          {/* Status card */}
+          <div className="portfolio-card p-4 mono">
+            <div className="flex items-center gap-2 mb-3">
               <div className="flex gap-1.5">
-                <span className="w-3 h-3 rounded-full" style={{ background: '#f78166' }} />
-                <span className="w-3 h-3 rounded-full" style={{ background: '#e3b341' }} />
-                <span className="w-3 h-3 rounded-full" style={{ background: '#3fb950' }} />
+                <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'var(--danger)' }} />
+                <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#e3b341' }} />
+                <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'var(--sec)' }} />
               </div>
               <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>status.sh</span>
             </div>
-            <p className="text-xs" style={{ color: 'var(--sec)' }}>$ whoami</p>
-            <p className="text-xs mb-1" style={{ color: 'var(--foreground)' }}>Full-Stack Dev &amp; Security Researcher</p>
-            <p className="text-xs" style={{ color: 'var(--sec)' }}>$ availability</p>
-            <p className="text-xs" style={{ color: 'var(--foreground)' }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block mr-1.5 animate-pulse" />
+            <p className="text-xs mb-0.5" style={{ color: 'var(--sec)' }}>$ whoami</p>
+            <p className="text-xs mb-2" style={{ color: 'var(--foreground)' }}>Full-Stack Dev &amp; Security Researcher</p>
+            <p className="text-xs mb-0.5" style={{ color: 'var(--sec)' }}>$ availability</p>
+            <p className="text-xs flex items-center gap-1.5" style={{ color: 'var(--foreground)' }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
               Open to freelance &amp; full-time roles
             </p>
           </div>
 
-          {contactInfo.map(({ icon: Icon, label, value, color }) => (
+          {/* Contact info */}
+          {contactInfo.map(({ icon: Icon, label, value, href }) => (
             <div key={label} className="portfolio-card flex items-center gap-4 p-4">
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.15)' }}>
-                <Icon size={17} style={{ color }} />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.12)' }}>
+                <Icon size={16} style={{ color: 'var(--dev)' }} />
               </div>
               <div>
-                <p className="text-xs mb-0.5 uppercase tracking-wider font-semibold" style={{ color: 'var(--muted-foreground)', fontFamily: 'ui-monospace, monospace' }}>{label}</p>
-                <p className="text-sm font-semibold" style={{ color: 'var(--foreground)' }}>{value}</p>
+                <p className="mono text-xs mb-0.5 uppercase tracking-wider font-semibold" style={{ color: 'var(--muted-foreground)' }}>{label}</p>
+                {href ? (
+                  <a href={href} className="text-sm font-semibold transition-colors duration-200"
+                    style={{ color: 'var(--foreground)' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--dev)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--foreground)')}>
+                    {value}
+                  </a>
+                ) : (
+                  <p className="text-sm font-semibold" style={{ color: 'var(--foreground)' }}>{value}</p>
+                )}
               </div>
             </div>
           ))}
 
+          {/* Socials */}
           <div>
-            <p className="text-xs uppercase tracking-widest font-semibold mb-3" style={{ color: 'var(--muted-foreground)', fontFamily: 'ui-monospace, monospace' }}>// find me</p>
+            <p className="mono text-xs uppercase tracking-widest font-semibold mb-3" style={{ color: 'var(--muted-foreground)', opacity: 0.6 }}>// find me</p>
             <div className="flex gap-2">
-              {socials.map(({ icon: Icon, href, label, color }) => (
+              {socials.map(({ icon: Icon, href, label }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                  className="w-10 h-10 flex items-center justify-center rounded-lg no-underline transition-all duration-200"
+                  className="w-10 h-10 flex items-center justify-center rounded-xl no-underline transition-all duration-300"
                   style={{ border: '1px solid var(--border)', color: 'var(--muted-foreground)' }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = color; e.currentTarget.style.color = color }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted-foreground)' }}>
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--dev)'; e.currentTarget.style.color = 'var(--dev)'; e.currentTarget.style.background = 'rgba(56,189,248,0.06)' }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted-foreground)'; e.currentTarget.style.background = 'transparent' }}>
                   <Icon size={16} />
                 </a>
               ))}
@@ -94,28 +105,34 @@ export default function Contact() {
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, x: 24 }} animate={inView ? { opacity: 1, x: 0 } : {}}
+        {/* Right — form */}
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.15 }}>
           {status === 'success' ? (
-            <div className="portfolio-card flex flex-col items-center justify-center gap-3 text-center p-10 min-h-[300px]">
-              <CheckCircle size={48} color="var(--sec)" />
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>Message Sent!</h3>
-              <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>I&apos;ll get back to you within 24 hours.</p>
+            <div className="portfolio-card flex flex-col items-center justify-center gap-4 text-center p-10 min-h-[320px]">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                style={{ background: 'rgba(52,211,153,0.1)', border: '1px solid rgba(52,211,153,0.2)' }}>
+                <CheckCircle2 size={28} style={{ color: 'var(--sec)' }} />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg tracking-tight" style={{ color: 'var(--foreground)' }}>Message Sent!</h3>
+                <p className="text-sm mt-1" style={{ color: 'var(--muted-foreground)' }}>I&apos;ll get back to you within 24 hours.</p>
+              </div>
               <button onClick={() => setStatus('idle')} className="btn-dev mt-2">Send Another</button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
               <div className="grid grid-cols-2 gap-3">
                 <input name="name" required placeholder="Your Name" className="form-input" />
-                <input name="phone" placeholder="Phone Number" className="form-input" />
+                <input name="phone" placeholder="Phone (optional)" className="form-input" />
               </div>
               <input name="email" type="email" required placeholder="Email Address" className="form-input" />
               <input name="subject" placeholder="Subject" className="form-input" />
               <textarea name="message" required rows={5} placeholder="Your Message..." className="form-input resize-none" />
-              {status === 'error' && <p className="text-sm" style={{ color: 'var(--danger)' }}>Something went wrong. Try again.</p>}
+              {status === 'error' && <p className="text-xs" style={{ color: 'var(--danger)' }}>Something went wrong. Try again.</p>}
               <button type="submit" disabled={status === 'loading'} className="btn-dev justify-center py-3"
                 style={{ opacity: status === 'loading' ? 0.6 : 1 }}>
-                <TerminalIcon size={15} />
+                <Send size={14} />
                 {status === 'loading' ? 'Sending...' : 'Send Message'}
               </button>
             </form>
@@ -123,13 +140,10 @@ export default function Contact() {
         </motion.div>
       </div>
 
-      {/* Interactive Terminal */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="mt-8"
-      >
-        <p className="text-xs uppercase tracking-widest font-bold mb-3" style={{ color: 'var(--dev)', fontFamily: 'ui-monospace, monospace' }}>
+      {/* Terminal */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, delay: 0.3 }} className="mt-10">
+        <p className="mono text-xs uppercase tracking-widest font-bold mb-3" style={{ color: 'var(--dev)', opacity: 0.7 }}>
           // Interactive Terminal — try: help, whoami, skills, security
         </p>
         <TerminalWidget />
