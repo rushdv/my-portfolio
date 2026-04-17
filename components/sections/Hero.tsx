@@ -41,7 +41,7 @@ const identityCards = [
   },
 ]
 
-const roles = ['Full Stack Developer', 'Security Researcher', 'CEH Candidate', 'CTF Player', 'Open Source Contributor']
+const roles = ['Full Stack Developer', 'Security Researcher', 'CTF Player']
 
 function Typewriter() {
   const [idx, setIdx] = useState(0)
@@ -62,13 +62,13 @@ function Typewriter() {
   }, [displayed, deleting, idx])
 
   return (
-    <span className="grad-dev font-bold">{displayed}
-      <span className="animate-pulse" style={{ color: 'var(--dev)' }}>|</span>
+    <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent font-bold">
+      {displayed}
+      <span className="animate-pulse text-emerald-400">|</span>
     </span>
   )
 }
 
-// Left = dev, Right = security
 const leftBadges = [
   { text: 'React', color: 'var(--dev)', top: '22%', delay: 0.5 },
   { text: 'Node.js', color: 'var(--dev)', top: '42%', delay: 0.8 },
@@ -84,142 +84,157 @@ const rightBadges = [
 export default function Hero() {
   return (
     <section
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{
-        background: 'radial-gradient(ellipse 60% 50% at 0% 0%, rgba(56,189,248,0.18) 0%, transparent 70%), radial-gradient(ellipse 60% 50% at 100% 100%, rgba(52,211,153,0.15) 0%, transparent 70%), var(--background)',
-        paddingTop: 72, paddingBottom: 32, paddingLeft: 24, paddingRight: 24,
-      }}
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden w-full bg-[var(--background)]"
+      style={{ paddingTop: 80, paddingBottom: 40, paddingLeft: 24, paddingRight: 24 }}
     >
-      {/* Dot grid */}
-      <div className="absolute inset-0 pointer-events-none"
-        style={{ backgroundImage: 'radial-gradient(circle, var(--border) 1px, transparent 1px)', backgroundSize: '28px 28px', opacity: 0.6 }} />
-      {/* Radial vignette */}
-      <div className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 75% 75% at 50% 50%, transparent 35%, var(--background) 100%)' }} />
+      {/* Grid Pattern with Vignette */}
+      <div className="absolute inset-0 pointer-events-none z-0"
+        style={{ backgroundImage: 'radial-gradient(circle, var(--border) 1px, transparent 1px)', backgroundSize: '32px 32px', opacity: 0.2 }} />
+      <div className="absolute inset-0 pointer-events-none z-0"
+        style={{ background: 'radial-gradient(circle at center, transparent 30%, var(--background) 100%)' }} />
 
-      {/* Glow blobs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div animate={{ scale: [1, 1.1, 1], opacity: [0.06, 0.1, 0.06] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-32 -left-32 w-[700px] h-[700px] rounded-full blur-[180px]"
-          style={{ background: 'rgba(56,189,248,0.18)' }} />
-        <motion.div animate={{ scale: [1, 1.12, 1], opacity: [0.04, 0.08, 0.04] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          className="absolute -bottom-32 -right-32 w-[600px] h-[600px] rounded-full blur-[160px]"
-          style={{ background: 'rgba(52,211,153,0.14)' }} />
-      </div>
-
-      {/* Left floating badges */}
-      <div className="absolute left-4 inset-y-0 pointer-events-none hidden xl:flex flex-col justify-center gap-0">
+      {/* Floating badges */}
+      <div className="absolute left-8 inset-y-0 pointer-events-none hidden lg:flex flex-col justify-center gap-0 z-0">
         {leftBadges.map((b, i) => (
           <motion.div key={b.text}
-            initial={{ opacity: 0, x: -16 }}
-            animate={{ opacity: 0.6, x: 0, y: [0, -8, 0] }}
-            transition={{ opacity: { delay: b.delay, duration: 0.5 }, x: { delay: b.delay, duration: 0.5 }, y: { delay: b.delay + 0.5, duration: 3.5 + i * 0.4, repeat: Infinity, ease: 'easeInOut' } }}
-            className="mono text-xs font-bold px-3 py-1.5 rounded-full mb-4 w-fit"
-            style={{ color: b.color, background: `${b.color}0e`, border: `1px solid ${b.color}25` }}>
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 0.7, x: 0, y: [0, -12, 0] }}
+            transition={{ opacity: { delay: b.delay, duration: 0.6 }, x: { delay: b.delay, duration: 0.6 }, y: { delay: b.delay + 0.6, duration: 4.5 + i * 0.5, repeat: Infinity, ease: 'easeInOut' } }}
+            className="mono text-xs font-semibold px-4 py-2 rounded-full mb-6 w-fit backdrop-blur-sm border border-white/10 bg-white/5"
+            style={{ color: b.color }}>
             {b.text}
           </motion.div>
         ))}
       </div>
 
-      {/* Right floating badges */}
-      <div className="absolute right-4 inset-y-0 pointer-events-none hidden xl:flex flex-col justify-center gap-0">
+      <div className="absolute right-8 inset-y-0 pointer-events-none hidden lg:flex flex-col justify-center gap-0 z-0">
         {rightBadges.map((b, i) => (
           <motion.div key={b.text}
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 0.6, x: 0, y: [0, -8, 0] }}
-            transition={{ opacity: { delay: b.delay, duration: 0.5 }, x: { delay: b.delay, duration: 0.5 }, y: { delay: b.delay + 0.5, duration: 3.5 + i * 0.4, repeat: Infinity, ease: 'easeInOut' } }}
-            className="mono text-xs font-bold px-3 py-1.5 rounded-full mb-4 w-fit self-end"
-            style={{ color: b.color, background: `${b.color}0e`, border: `1px solid ${b.color}25` }}>
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 0.7, x: 0, y: [0, -12, 0] }}
+            transition={{ opacity: { delay: b.delay, duration: 0.6 }, x: { delay: b.delay, duration: 0.6 }, y: { delay: b.delay + 0.6, duration: 4.5 + i * 0.5, repeat: Infinity, ease: 'easeInOut' } }}
+            className="mono text-xs font-semibold px-4 py-2 rounded-full mb-6 w-fit self-end backdrop-blur-sm border border-white/10 bg-white/5"
+            style={{ color: b.color }}>
             {b.text}
           </motion.div>
         ))}
       </div>
 
       {/* ── Main content ── */}
-      <div className="relative z-10 w-full max-w-4xl flex flex-col items-center text-center">
+      <div className="relative z-10 w-full max-w-7xl px-4 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+          
+          {/* Left: Text block */}
+          <motion.div variants={container} initial="hidden" animate="show"
+            className="flex flex-col items-start text-left gap-6 lg:pr-8">
+            
+            <motion.div variants={item} className="mb-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span className="text-[10px] font-bold tracking-widest uppercase text-white/70">Available for work</span>
+              </div>
+            </motion.div>
 
-        {/* Text block */}
-        <motion.div variants={container} initial="hidden" animate="show"
-          className="w-full flex flex-col items-center gap-5 mb-10">
+            <motion.div variants={item} className="space-y-4">
+              <h1 className="tracking-tighter text-foreground" 
+                  style={{ 
+                    fontSize: 'clamp(3rem, 8vw, 6.5rem)', 
+                    fontWeight: 900, 
+                    lineHeight: 0.88, 
+                    letterSpacing: '-0.04em' 
+                  }}>
+                <span className="bg-gradient-to-br from-white via-neutral-200 to-neutral-500 bg-clip-text text-transparent block">Full Stack</span>
+                <span className="bg-gradient-to-br from-white via-neutral-200 to-neutral-500 bg-clip-text text-transparent block">Developer</span>
+              </h1>
+            </motion.div>
 
-          <motion.div variants={item}>
-            <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.03em', color: 'var(--foreground)' }}>
-              <span className="grad-dev">Full Stack Developer</span>
-              <br />
-              <span style={{ color: 'var(--foreground)' }}>&amp; </span>
-              <span className="grad-sec">Cybersecurity Enthusiast</span>
-            </h1>
-          </motion.div>
+            <motion.div variants={item} className="text-lg sm:text-2xl font-bold h-10 mt-1 flex items-center gap-3">
+              <span className="text-white/40 font-medium whitespace-nowrap">Focused on</span>
+              <Typewriter />
+            </motion.div>
+            
+            <motion.p variants={item} className="max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+              I craft scalable web applications and explore the depths of cybersecurity. Passionate about writing clean code and discovering new vulnerabilities.
+            </motion.p>
 
-          <motion.div variants={item} style={{ fontSize: '1.1rem', minHeight: '1.7rem' }}>
-            <Typewriter />
-          </motion.div>
-
-          <motion.div variants={item} className="flex flex-wrap gap-2 justify-center">
-            {['React / Node.js', 'Next.js', 'Python / FastAPI'].map(t => <span key={t} className="tag-dev">{t}</span>)}
-            {['CEH', 'Pentesting', 'CTF Player'].map(t => <span key={t} className="tag-sec">{t}</span>)}
-            <span className="mono inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-md"
-              style={{ background: 'rgba(251,113,133,0.08)', color: 'var(--danger)', border: '1px solid rgba(251,113,133,0.18)' }}>
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: 'var(--danger)' }} />
-              Learning: AWS + CEH
-            </span>
-          </motion.div>
-
-          <motion.div variants={item} className="flex flex-wrap gap-3 justify-center">
-            <a href="#projects" className="btn-dev"><Terminal size={15} /> View Projects</a>
-            <a href="#security" className="btn-sec"><Shield size={15} /> Security Work</a>
-            <a href="#contact" className="btn-outline">Hire Me</a>
-          </motion.div>
-
-          <motion.div variants={item} className="flex items-center gap-3 flex-wrap justify-center">
-            <span className="mono text-xs font-semibold" style={{ color: 'var(--muted-foreground)', opacity: 0.4 }}>// find me on</span>
-            {socials.map(({ icon: Icon, href, label }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                className="w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300"
-                style={{ border: '1px solid var(--border)', color: 'var(--muted-foreground)' }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--dev)'; e.currentTarget.style.color = 'var(--dev)'; e.currentTarget.style.background = 'rgba(56,189,248,0.06)' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted-foreground)'; e.currentTarget.style.background = 'transparent' }}>
-                <Icon size={16} />
+            <motion.div variants={item} className="flex flex-wrap gap-4 mt-4">
+              <a href="#projects" className="btn-dev">
+                <Terminal size={18} /> View My Work
               </a>
-            ))}
-          </motion.div>
-        </motion.div>
+              <a href="#contact" className="btn-outline">
+                Contact Me
+              </a>
+            </motion.div>
 
-        {/* Identity cards — full width of max-w-4xl */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full"
-        >
-          {identityCards.map((card) => {
-            const Icon = card.icon
-            return (
-              <motion.div key={card.label}
-                className="portfolio-card p-6 text-left"
-                style={{ borderColor: card.border }}
-                whileHover={{ y: -5, transition: { duration: 0.25 } }}>
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                  style={{ background: card.bg, color: card.color, border: `1px solid ${card.border}` }}>
-                  <Icon size={18} />
-                </div>
-                <h3 className="font-bold mb-1.5" style={{ color: 'var(--foreground)', fontSize: '0.95rem', letterSpacing: '-0.01em' }}>
-                  {card.label}
-                </h3>
-                <p style={{ color: 'var(--muted-foreground)', fontSize: '0.82rem', lineHeight: 1.6 }}>
-                  {card.desc}
-                </p>
-              </motion.div>
-            )
-          })}
-        </motion.div>
+            <motion.div variants={item} className="flex items-center gap-4 mt-6">
+              {socials.map(({ icon: Icon, href, label }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                  className="w-10 h-10 flex items-center justify-center rounded-xl border border-border bg-background hover:border-dev hover:text-dev transition-all duration-300">
+                  <Icon size={20} />
+                </a>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Right: Visual block (Identity Cards) */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }} 
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="relative flex flex-col gap-5 w-full max-w-lg mx-auto lg:ml-auto"
+          >
+            {identityCards.map((card, idx) => {
+              const Icon = card.icon
+              return (
+                <motion.div key={card.label}
+                  initial={{ x: 40, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.6 + idx * 0.1, duration: 0.6 }}
+                  className="p-6 text-left rounded-2xl flex flex-col shadow-sm border border-border bg-background transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = card.border }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)' }}>
+                  
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                       style={{ background: `radial-gradient(circle at 100% 100%, ${card.bg}, transparent 70%)` }} />
+
+                  <div className="flex items-center gap-4 mb-3 relative z-10">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center"
+                      style={{ background: card.bg, color: card.color, border: `1px solid ${card.border}` }}>
+                      <Icon size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-foreground text-lg leading-tight">
+                        {card.label}
+                      </h3>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
+                        {idx === 0 ? 'Engineering' : idx === 1 ? 'Research' : 'Community'}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed relative z-10">
+                    {card.desc}
+                  </p>
+                </motion.div>
+              )
+            })}
+          </motion.div>
+        </div>
       </div>
 
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce"
+      <motion.div 
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }} 
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none hidden sm:block"
         style={{ color: 'var(--muted-foreground)' }}>
-        <ArrowDown size={18} />
+        <motion.div
+           animate={{ y: [0, 10, 0] }}
+           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}>
+           <ArrowDown size={22} className="opacity-50" />
+        </motion.div>
       </motion.div>
     </section>
   )

@@ -1,8 +1,9 @@
 'use client'
 
-import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
+import Link from 'next/link'
 import ThemeToggle from './ThemeToggle'
 import { useTheme } from 'next-themes'
 
@@ -19,91 +20,100 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeTab, setActiveTab] = useState('')
   const { resolvedTheme } = useTheme()
   const isDark = resolvedTheme === 'dark'
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 30)
+    const fn = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', fn)
     return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  const getLinkColor = (type: string) => {
-    if (type === 'dev') return 'var(--dev)'
-    if (type === 'sec') return 'var(--sec)'
-    return 'var(--muted-foreground)'
+  // Simple intersection observer could be better for activeTab, but using click for now
+  const handleLinkClick = (href: string) => {
+    setActiveTab(href)
+    setOpen(false)
   }
-
-  const navBg = scrolled
-    ? isDark
-      ? 'rgba(8,11,18,0.9)'
-      : 'rgba(245,240,235,0.92)'
-    : 'transparent'
 
   return (
     <header
-      className="fixed top-0 inset-x-0 z-50 transition-all duration-500"
+      className={`fixed top-0 inset-x-0 z-[100] transition-all duration-300 ${scrolled ? 'border-b border-white/5 backdrop-blur-[16px]' : 'border-b border-transparent'}`}
       style={{
-        background: navBg,
-        borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
-        backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
+        background: scrolled ? 'rgba(10, 10, 15, 0.7)' : 'transparent',
       }}
     >
-      <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="mono font-bold text-base no-underline flex items-center"
+      <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link href="/" className="mono font-bold text-lg no-underline flex items-center group"
           style={{ color: 'var(--foreground)', letterSpacing: '-0.02em' }}>
-          <span style={{ color: 'var(--dev)' }}>&lt;</span>
+          <span className="text-[var(--dev)] group-hover:rotate-12 transition-transform">&lt;</span>
           <span>Shihab</span>
-          <span style={{ color: 'var(--sec)' }}>/&gt;</span>
+          <span className="text-[var(--sec)] group-hover:-rotate-12 transition-transform">/&gt;</span>
         </Link>
 
-        <ul className="hidden md:flex gap-0.5 list-none items-center">
+        {/* Desktop Nav */}
+        <ul className="hidden md:flex gap-1 list-none items-center">
           {links.map((l) => (
-            <li key={l.href}>
+            <li key={l.href} className="relative group">
               <a href={l.href}
-                className="px-3 py-1.5 rounded-lg text-sm block transition-all duration-200 no-underline hover:bg-black/5 dark:hover:bg-white/5"
+                onClick={() => handleLinkClick(l.href)}
+                className="px-4 py-2 text-sm font-medium transition-colors no-underline relative z-10"
                 style={{
-                  color: getLinkColor(l.type),
-                  fontFamily: l.type !== 'neutral' ? 'ui-monospace, monospace' : 'inherit',
-                  fontSize: l.type !== 'neutral' ? '0.8rem' : '0.875rem',
+                  color: activeTab === l.href 
+                    ? 'var(--foreground)' 
+                    : l.type === 'dev' ? 'var(--dev)' : l.type === 'sec' ? 'var(--sec)' : 'var(--muted-foreground)'
                 }}>
                 {l.label}
               </a>
+              {activeTab === l.href && (
+                <motion.div
+                  layoutId="nav-underline"
+                  className="absolute bottom-1 left-4 right-4 h-[2px] rounded-full bg-gradient-to-r from-indigo-500 to-teal-400 z-0"
+                />
+              )}
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <ThemeToggle />
           <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
-            className="btn-dev hidden md:inline-flex"
-            style={{ padding: '8px 18px', fontSize: '0.82rem', borderRadius: 8 }}>
+            className="btn-dev hidden md:inline-flex shadow-lg shadow-indigo-500/10"
+            style={{ padding: '8px 20px', fontSize: '0.85rem', borderRadius: 10 }}>
             Resume
           </a>
-          <button className="md:hidden cursor-pointer p-1" onClick={() => setOpen(!open)} aria-label="Toggle menu"
-            style={{ background: 'none', border: 'none', color: 'var(--muted-foreground)' }}>
-            {open ? <X size={20} /> : <Menu size={20} />}
+          <button className="md:hidden cursor-pointer text-white/70" onClick={() => setOpen(!open)} aria-label="Toggle menu"
+            style={{ background: 'none', border: 'none' }}>
+            {open ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </nav>
 
-      {open && (
-        <div className="md:hidden px-4 pb-4 flex flex-col gap-1"
-          style={{
-            background: isDark ? 'rgba(8,11,18,0.97)' : 'rgba(245,240,235,0.97)',
-            borderTop: '1px solid var(--border)',
-            backdropFilter: 'blur(20px)',
-          }}>
-          {links.map((l) => (
-            <a key={l.href} href={l.href} onClick={() => setOpen(false)}
-              className="px-3 py-2.5 rounded-lg text-sm no-underline transition-colors"
-              style={{ color: getLinkColor(l.type) }}>
-              {l.label}
-            </a>
-          ))}
-        </div>
-      )}
+      {/* Mobile Nav */}
+      <AnimatePresence>
+        {open && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden px-4 pb-6 flex flex-col gap-2 overflow-hidden"
+            style={{
+              background: 'rgba(10, 10, 15, 0.95)',
+              borderTop: '1px solid rgba(255,255,255,0.05)',
+              backdropFilter: 'blur(16px)',
+            }}>
+            {links.map((l) => (
+              <a key={l.href} href={l.href} onClick={() => setOpen(false)}
+                className="px-4 py-3 rounded-xl text-base font-medium no-underline transition-colors hover:bg-white/5"
+                style={{ 
+                  color: l.type === 'dev' ? 'var(--dev)' : l.type === 'sec' ? 'var(--sec)' : 'var(--foreground)' 
+                }}>
+                {l.label}
+              </a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }

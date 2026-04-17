@@ -14,7 +14,7 @@
 
 /* ── Dark (default) ── */
 :root {
-  --background:       #080b12;
+  --background:       #0a0a0f;
   --card:             #0d1117;
   --card-2:           #111827;
   --border:           #1f2937;
@@ -32,19 +32,27 @@
   --glow-sec:  0 0 40px rgba(52,211,153,0.1);
 }
 
-/* ── Light (warm) ── */
+/* ── Light (Cool Hacker/Dev) ── */
 .light {
-  --background:       #f5f0eb;
-  --card:             #faf7f4;
-  --card-2:           #f0ebe4;
-  --border:           #e2d9cf;
-  --foreground:       #1c1917;
-  --muted:            #ede8e3;
-  --muted-foreground: #78716c;
-  --shadow:    0 1px 2px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.06);
-  --shadow-lg: 0 4px 6px rgba(0,0,0,0.06), 0 20px 48px rgba(0,0,0,0.1);
-  --glow-dev:  none;
-  --glow-sec:  none;
+  --background:       #f8fafc; /* Crisp Slate 50 */
+  --card:             #ffffff; /* White cards */
+  --card-2:           #f1f5f9; /* Slate 100 on hover */
+  --border:           #e2e8f0; /* Slate 200 */
+  --foreground:       #0f172a; /* Slate 900 text */
+  --muted:            #f1f5f9;
+  --muted-foreground: #64748b; /* Slate 500 */
+  
+  /* Hacker/Dev vibe preserved but adjusted for light background */
+  --dev:              #0ea5e9; /* Sky blue (Dev) */
+  --dev-2:            #6366f1; /* Indigo (Dev secondary) */
+  --sec:              #10b981; /* Emerald green (Security/Hacker) */
+  --sec-2:            #0d9488; /* Teal (Security secondary) */
+  --danger:           #ef4444; /* Clean Red */
+  
+  --shadow:    0 4px 14px rgba(15,23,42,0.04);
+  --shadow-lg: 0 10px 30px rgba(15,23,42,0.06);
+  --glow-dev:  0 0 40px rgba(14,165,233,0.15);
+  --glow-sec:  0 0 40px rgba(16,185,129,0.15);
 }
 
 @layer base {
@@ -74,13 +82,13 @@
 
   /* Gradient texts */
   .grad-dev {
-    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    background: linear-gradient(135deg, var(--dev), var(--dev-2));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   .grad-sec {
-    background: linear-gradient(135deg, #34d399, #6ee7b7);
+    background: linear-gradient(135deg, var(--sec), var(--sec-2));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -157,8 +165,8 @@
     width: 44px; height: 3px;
     border-radius: 3px;
   }
-  .section-title.dev::after { background: linear-gradient(90deg, #38bdf8, #818cf8); }
-  .section-title.sec::after { background: linear-gradient(90deg, #34d399, #6ee7b7); }
+  .section-title.dev::after { background: linear-gradient(90deg, var(--dev), var(--dev-2)); }
+  .section-title.sec::after { background: linear-gradient(90deg, var(--sec), var(--sec-2)); }
 
   /* Tags */
   .tag-dev {
@@ -211,13 +219,13 @@
     font-weight: 600;
     cursor: pointer;
     border: none;
-    background: linear-gradient(135deg, #38bdf8, #818cf8);
-    color: #080b12;
+    background: linear-gradient(135deg, var(--dev), var(--dev-2));
+    color: #ffffff;
     text-decoration: none;
     transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
     letter-spacing: -0.01em;
   }
-  .btn-dev:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(56,189,248,0.3); }
+  .btn-dev:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: var(--glow-dev); }
 
   .btn-sec {
     display: inline-flex;
@@ -229,12 +237,12 @@
     font-weight: 600;
     cursor: pointer;
     border: none;
-    background: linear-gradient(135deg, #34d399, #6ee7b7);
-    color: #080b12;
+    background: linear-gradient(135deg, var(--sec), var(--sec-2));
+    color: #ffffff;
     text-decoration: none;
     transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
   }
-  .btn-sec:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(52,211,153,0.3); }
+  .btn-sec:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: var(--glow-sec); }
 
   .btn-outline {
     display: inline-flex;
@@ -274,5 +282,17 @@
     width: 100%;
     height: 1px;
     background: linear-gradient(to right, transparent, var(--border), transparent);
+  }
+
+  /* Noise Texture Overlay */
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-attachment: fixed;
   }
 }

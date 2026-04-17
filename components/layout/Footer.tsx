@@ -1,12 +1,13 @@
 'use client'
 
+import { ArrowUpRight, Shield, Code2, Mail } from 'lucide-react'
+import Link from 'next/link'
 import { GithubIcon, LinkedinIcon, TwitterXIcon } from '@/components/icons/SocialIcons'
-import { Mail } from 'lucide-react'
 
 const quickLinks = [
   { href: '#about', label: 'About' },
   { href: '#projects', label: 'Projects' },
-  { href: '#security', label: 'Security' },
+  { href: '#skills', label: 'Skills' },
   { href: '#writeups', label: 'Writeups' },
   { href: '#certifications', label: 'Certifications' },
   { href: '#contact', label: 'Contact' },
@@ -20,51 +21,54 @@ const socials = [
 ]
 
 export default function Footer() {
-  return (
-    <footer style={{ background: 'var(--card)', borderTop: '1px solid var(--border)' }}>
-      {/* Main footer */}
-      <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
-        {/* Brand */}
-        <div className="flex flex-col gap-4">
-          <div>
-            <p className="text-lg font-bold" style={{ fontFamily: 'ui-monospace, monospace' }}>
-              <span style={{ color: 'var(--dev)' }}>&lt;</span>
-              <span style={{ color: 'var(--foreground)' }}>Shihab</span>
-              <span style={{ color: 'var(--sec)' }}> /&gt;</span>
-            </p>
-            <p className="text-xs mt-1" style={{ color: 'var(--muted-foreground)', fontFamily: 'ui-monospace, monospace' }}>
-              Full-Stack Dev &amp; Security Researcher
-            </p>
-          </div>
-          <p className="text-sm leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
-            Building secure, scalable web applications with a focus on clean architecture and performance-first engineering.
+  return (
+    <footer className="relative bg-[#0a0a0f] border-t border-white/5 pt-24 pb-12 overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
+      
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-8">
+        
+        {/* Brand & Mission */}
+        <div className="lg:col-span-2 flex flex-col gap-6">
+          <Link href="/" className="group flex items-center gap-2 text-2xl font-black tracking-tighter text-white">
+            <span className="text-indigo-500 group-hover:rotate-12 transition-transform">&lt;</span>
+            SHIHAB
+            <span className="text-emerald-500 group-hover:-rotate-12 transition-transform">/&gt;</span>
+          </Link>
+          <p className="max-w-sm text-white/50 text-sm leading-relaxed">
+            Architecting secure, high-performance digital experiences. 
+            Focused on the intersection of modern full-stack development and advanced security research.
           </p>
-          {/* Status */}
-          <div className="inline-flex items-center gap-2 text-xs font-semibold w-fit px-3 py-1.5 rounded-full"
-            style={{ background: 'rgba(34,197,94,0.08)', color: 'var(--sec)', border: '1px solid rgba(34,197,94,0.2)', fontFamily: 'ui-monospace, monospace' }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-            Open to opportunities
+          <div className="flex items-center gap-4">
+            {socials.map((s) => (
+              <a 
+                key={s.label} 
+                href={s.href} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="p-2.5 rounded-xl bg-white/5 border border-white/5 text-white/40 hover:text-white hover:border-white/10 hover:-translate-y-1 transition-all"
+              >
+                <s.icon size={18} />
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Quick links */}
-        <div>
-          <p className="text-xs uppercase tracking-widest font-bold mb-4"
-            style={{ color: 'var(--dev)', fontFamily: 'ui-monospace, monospace' }}>
-            // Quick Links
-          </p>
-          <ul className="flex flex-col gap-2">
+        {/* Navigation */}
+        <div className="flex flex-col gap-6">
+          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">Navigation</h4>
+          <ul className="grid grid-cols-2 gap-y-3 gap-x-8">
             {quickLinks.map((l) => (
               <li key={l.href}>
-                <a
-                  href={l.href}
-                  className="text-sm no-underline transition-colors duration-200 flex items-center gap-2"
-                  style={{ color: 'var(--muted-foreground)' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--foreground)')}
-                  onMouseLeave={e => (e.currentTarget.style.color = 'var(--muted-foreground)')}
+                <a 
+                  href={l.href} 
+                  className="text-sm font-medium text-white/40 hover:text-white transition-colors flex items-center gap-1.5 group"
                 >
-                  <span style={{ color: 'var(--dev)', fontFamily: 'ui-monospace, monospace', fontSize: '0.65rem' }}>→</span>
+                  <ArrowUpRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-indigo-500" />
                   {l.label}
                 </a>
               </li>
@@ -72,48 +76,41 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Contact & socials */}
-        <div>
-          <p className="text-xs uppercase tracking-widest font-bold mb-4"
-            style={{ color: 'var(--sec)', fontFamily: 'ui-monospace, monospace' }}>
-            // Connect
-          </p>
-          <div className="flex flex-col gap-3 mb-5">
-            <a href="mailto:shihab.zn4@gmail.com" className="text-sm no-underline transition-colors duration-200"
-              style={{ color: 'var(--muted-foreground)', fontFamily: 'ui-monospace, monospace' }}
-              onMouseEnter={e => (e.currentTarget.style.color = 'var(--dev)')}
-              onMouseLeave={e => (e.currentTarget.style.color = 'var(--muted-foreground)')}>
-              shihab.zn4@gmail.com
-            </a>
-            <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Bangladesh 🇧🇩</span>
-          </div>
-          <div className="flex gap-2">
-            {socials.map(({ icon: Icon, href, label }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                className="w-9 h-9 flex items-center justify-center rounded-lg no-underline transition-all duration-300"
-                style={{ border: '1px solid var(--border)', color: 'var(--muted-foreground)' }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--dev)'; e.currentTarget.style.color = 'var(--dev)' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted-foreground)' }}>
-                <Icon size={15} />
-              </a>
-            ))}
+        {/* Status & CTA */}
+        <div className="flex flex-col gap-6">
+          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">System Status</h4>
+          <div className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+              <span className="text-xs font-bold text-white tracking-tight">Available for hire</span>
+            </div>
+            <p className="text-[10px] text-white/30 font-medium leading-relaxed">
+              Open to high-impact roles in cybersecurity and engineering.
+            </p>
+            <button 
+              onClick={scrollToTop}
+              className="w-full py-2.5 rounded-xl bg-white text-black font-black uppercase tracking-widest text-[10px] hover:bg-indigo-500 hover:text-white transition-all active:scale-95"
+            >
+              Back to Top
+            </button>
           </div>
         </div>
+
       </div>
 
-      {/* Bottom bar */}
-      <div className="max-w-6xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-3"
-        style={{ borderTop: '1px solid var(--border)' }}>
-        <p className="text-xs" style={{ color: 'var(--muted-foreground)', fontFamily: 'ui-monospace, monospace' }}>
-          © {new Date().getFullYear()} Shihab Shahriar Rashu
+      {/* Final Copyright */}
+      <div className="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+        <p className="text-[10px] font-black uppercase tracking-widest text-white/20">
+          © {new Date().getFullYear()} SHIHAB SHAHRIAR RASHU — DESIGNED FOR THE ELITE
         </p>
-        <p className="text-xs" style={{ color: 'var(--muted-foreground)', fontFamily: 'ui-monospace, monospace' }}>
-          <span style={{ color: 'var(--dev)' }}>dev</span>
-          {' · '}
-          <span style={{ color: 'var(--sec)' }}>security</span>
-          {' · '}
-          <span style={{ color: 'var(--danger)' }}>research</span>
-        </p>
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/10">
+            <Code2 size={12} /> Full-Stack
+          </div>
+          <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/10">
+            <Shield size={12} /> Security
+          </div>
+        </div>
       </div>
     </footer>
   )

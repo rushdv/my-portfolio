@@ -7,24 +7,46 @@ import Certifications from '@/components/sections/Certifications'
 import Writeups from '@/components/sections/Writeups'
 import Contact from '@/components/sections/Contact'
 
+import SectionReveal from '@/components/ui/SectionReveal'
+
 export default function Home() {
   return (
-    <main className="pt-16">
-      <Hero />
-      <div className="section-divider" />
-      <About />
-      <div className="section-divider" />
-      <Skills />
-      <div className="section-divider" />
-      <Experience />
-      <div className="section-divider" />
-      <Projects />
-      <div className="section-divider" />
-      <Certifications />
-      <div className="section-divider" />
-      <Writeups />
-      <div className="section-divider" />
-      <Contact />
+    <main className="relative bg-[#0a0a0f]">
+      {/* Hero doesn't need SectionReveal usually as it's above the fold, 
+          but its internal elements have their own entrance animations. */}
+      <section className="relative z-10">
+        <Hero />
+      </section>
+
+      <div className="relative z-10 space-y-32 pb-32">
+        <SectionReveal>
+          <About />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Skills />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Experience />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Projects />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Certifications />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Writeups />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Contact />
+        </SectionReveal>
+      </div>
     </main>
   )
 }

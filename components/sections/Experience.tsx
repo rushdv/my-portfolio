@@ -3,50 +3,79 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { experiences } from '@/content/experience'
+import { Briefcase } from 'lucide-react'
+import SectionHeader from '@/components/ui/SectionHeader'
 
 export default function Experience() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="experience" className="py-24 px-6 max-w-6xl mx-auto" ref={ref}>
-      <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55 }}>
-        <p className="section-label dev">Experience</p>
-        <h2 className="section-title dev">Work History</h2>
+    <section id="experience" className="py-32 px-6 max-w-7xl mx-auto" ref={ref}>
+      <motion.div 
+        initial={{ opacity: 0, y: 24 }} 
+        animate={inView ? { opacity: 1, y: 0 } : {}} 
+        transition={{ duration: 0.6 }}
+      >
+        <SectionHeader 
+          label="Journey"
+          title="Experience"
+          accentColor="#6366f1"
+          icon={Briefcase}
+        />
       </motion.div>
 
-      <div className="relative pl-8">
-        {/* Timeline line */}
-        <div className="absolute left-0 top-3 bottom-3 w-px"
-          style={{ background: 'linear-gradient(to bottom, var(--dev), var(--sec), transparent)' }} />
+      <div className="relative max-w-6xl mx-auto pl-12 md:pl-0">
+        {/* Timeline Desktop Line */}
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-indigo-500 via-teal-400 to-transparent -translate-x-1/2 opacity-20" />
+        {/* Timeline Mobile Line */}
+        <div className="md:hidden absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-indigo-500 via-teal-400 to-transparent opacity-20" />
 
-        <div className="flex flex-col gap-6">
-          {experiences.map((exp, i) => (
-            <motion.div key={i} className="relative"
-              initial={{ opacity: 0, x: -16 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.1 }}>
-              {/* Dot */}
-              <div className="absolute -left-[33px] top-5 w-2.5 h-2.5 rounded-full ring-2"
-                style={{ background: 'var(--dev)', ringColor: 'var(--background)', boxShadow: '0 0 0 3px var(--background)' }} />
-
-              <div className="portfolio-card p-6">
-                <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
-                  <div>
-                    <h3 className="font-bold text-base tracking-tight" style={{ color: 'var(--foreground)' }}>{exp.role}</h3>
-                    <p className="grad-dev mono text-xs font-semibold mt-0.5">{exp.company}</p>
+        <div className="flex flex-col gap-12">
+          {experiences.map((exp, i) => {
+            const isEven = i % 2 === 0
+            return (
+              <motion.div 
+                key={i} 
+                className={`relative flex flex-col md:flex-row items-center ${isEven ? 'md:flex-row-reverse' : ''}`}
+                initial={false}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+              >
+                {/* Timeline Node */}
+                <div className="absolute left-[-48px] md:left-1/2 md:-translate-x-1/2 top-0 md:top-6 z-20">
+                  <div className="w-6 h-6 rounded-full bg-[#0a0a0f] border-2 border-indigo-500/50 flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
                   </div>
-                  <span className="mono text-xs px-2.5 py-1 rounded-lg font-semibold whitespace-nowrap"
-                    style={{ background: 'rgba(56,189,248,0.08)', color: 'var(--dev)', border: '1px solid rgba(56,189,248,0.15)' }}>
-                    {exp.period}
-                  </span>
                 </div>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--muted-foreground)' }}>{exp.description}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {exp.skills.map((s) => <span key={s} className="tag-dev">{s}</span>)}
+
+                {/* Content Card */}
+                <div className={`w-full md:w-1/2 ${isEven ? 'md:pl-16' : 'md:pr-16'}`}>
+                  <div className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md hover:border-white/20 transition-all group">
+                    <div className="flex flex-col gap-2 mb-4">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400/80">{exp.period}</span>
+                      <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-indigo-400 transition-colors">{exp.role}</h3>
+                      <div className="flex items-center gap-2 text-sm font-medium text-white/40">
+                        <Briefcase size={14} className="text-teal-400" />
+                        {exp.company}
+                      </div>
+                    </div>
+                    <p className="text-white/50 text-sm leading-relaxed mb-6">
+                      {exp.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {exp.skills.map((s) => (
+                        <span key={s} className="text-[10px] px-2.5 py-1 rounded-full border border-white/5 bg-white/5 text-white/30 uppercase font-black tracking-widest">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>

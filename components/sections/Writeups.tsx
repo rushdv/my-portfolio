@@ -1,14 +1,16 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { ArrowUpRight, Clock, Shield, BookOpen, FlaskConical } from 'lucide-react'
+import { GithubIcon } from '@/components/icons/SocialIcons'
 import { writeups } from '@/content/writeups'
+import SectionHeader from '@/components/ui/SectionHeader'
 
 const categoryConfig = {
-  ctf:      { label: 'CTF',      icon: Shield,       color: 'var(--sec)',    bg: 'rgba(34,197,94,0.08)',   border: 'rgba(34,197,94,0.2)' },
-  blog:     { label: 'Blog',     icon: BookOpen,     color: 'var(--dev)',    bg: 'rgba(56,189,248,0.08)',  border: 'rgba(56,189,248,0.2)' },
-  research: { label: 'Research', icon: FlaskConical, color: 'var(--danger)', bg: 'rgba(247,129,102,0.08)', border: 'rgba(247,129,102,0.2)' },
+  ctf:      { label: 'CTF',      icon: Shield,       color: '#34d399' },
+  blog:     { label: 'Blog',     icon: BookOpen,     color: '#6366f1' },
+  research: { label: 'Research', icon: FlaskConical, color: '#f43f5e' },
 }
 
 const tabs = ['All', 'CTF', 'Blog', 'Research'] as const
@@ -20,125 +22,122 @@ function formatDate(d: string) {
 export default function Writeups() {
   const [active, setActive] = useState<typeof tabs[number]>('All')
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const inView = useInView(ref, { once: true, margin: '-100px' })
 
   const filtered = active === 'All'
     ? writeups
     : writeups.filter(w => w.category === active.toLowerCase())
 
   return (
-    <section id="writeups" className="py-20 px-6 max-w-6xl mx-auto" ref={ref}>
-      <motion.div initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
-        <p className="section-label sec">Writing</p>
-        <h2 className="section-title sec">Blog &amp; Writeups</h2>
+    <section id="writeups" className="py-32 px-6 max-w-7xl mx-auto" ref={ref}>
+      <motion.div 
+        initial={{ opacity: 0, y: 24 }} 
+        animate={inView ? { opacity: 1, y: 0 } : {}} 
+        transition={{ duration: 0.6 }}
+        className="text-left mb-16"
+      >
+        <SectionHeader 
+          label="Insights"
+          title="Security Writeups"
+          accentColor="#f43f5e"
+          icon={BookOpen}
+        />
+
+        {/* Tab switcher */}
+        <div className="mt-10 inline-flex p-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActive(tab)}
+              className={`px-8 py-2.5 rounded-full text-sm font-bold transition-all relative ${active === tab ? 'text-black' : 'text-white/60 hover:text-white'}`}
+            >
+              {active === tab && <motion.div layoutId="writeup-pill" className="absolute inset-0 bg-white rounded-full z-0" />}
+              <span className="relative z-10">{tab}</span>
+            </button>
+          ))}
+        </div>
       </motion.div>
 
-      {/* Filter tabs */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActive(tab)}
-            className="px-4 py-1.5 rounded-full text-xs font-bold cursor-pointer transition-all duration-200"
-            style={active === tab
-              ? { background: 'linear-gradient(to right, #22c55e, #4ade80)', color: '#0d1117', border: 'none' }
-              : { background: 'transparent', color: 'var(--muted-foreground)', border: '1px solid var(--border)', fontFamily: 'ui-monospace, monospace' }
-            }
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <AnimatePresence mode="popLayout">
+          {filtered.map((w, i) => {
+            const cat = categoryConfig[w.category as keyof typeof categoryConfig]
+            const Icon = cat.icon
 
-      <div className="grid sm:grid-cols-2 gap-5">
-        {filtered.map((w, i) => {
-          const cat = categoryConfig[w.category]
-          const Icon = cat.icon
-
-          return (
-            <motion.article
-              key={w.slug}
-              className="portfolio-card flex flex-col p-6 group"
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-            >
-              {/* Header */}
-              <div className="flex items-start justify-between gap-3 mb-3">
-                <span
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold flex-shrink-0"
-                  style={{ background: cat.bg, color: cat.color, border: `1px solid ${cat.border}`, fontFamily: 'ui-monospace, monospace' }}
-                >
-                  <Icon size={11} />
-                  {cat.label}
-                </span>
-                <div className="flex items-center gap-3 text-xs" style={{ color: 'var(--muted-foreground)', fontFamily: 'ui-monospace, monospace' }}>
-                  <span className="flex items-center gap-1">
-                    <Clock size={11} /> {w.readTime}
-                  </span>
-                  <span>{formatDate(w.date)}</span>
-                </div>
-              </div>
-
-              {/* Title */}
-              <h3
-                className="font-bold text-base leading-snug mb-2 transition-colors duration-200"
-                style={{ color: 'var(--foreground)' }}
+            return (
+              <motion.article
+                key={w.slug}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className="group relative flex flex-col p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md hover:border-white/20 transition-all overflow-hidden"
               >
-                {w.title}
-              </h3>
+                {/* Side Accent */}
+                <div className="absolute left-0 top-0 bottom-0 w-[2px] opacity-0 group-hover:opacity-100 transition-opacity" style={{ backgroundColor: cat.color }} />
 
-              {/* Excerpt */}
-              <p className="text-sm leading-relaxed flex-1 mb-4" style={{ color: 'var(--muted-foreground)' }}>
-                {w.excerpt}
-              </p>
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/5 border border-white/10" style={{ color: cat.color }}>
+                      <Icon size={16} />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white/30">{cat.label}</span>
+                  </div>
+                  <div className="flex flex-col items-end gap-1 text-[10px] font-black uppercase tracking-widest text-white/20">
+                    <span className="flex items-center gap-1.5"><Clock size={12} /> {w.readTime}</span>
+                    <span>{formatDate(w.date)}</span>
+                  </div>
+                </div>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {w.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-2 py-0.5 rounded"
-                    style={{ background: cat.bg, color: cat.color, border: `1px solid ${cat.border}`, fontFamily: 'ui-monospace, monospace' }}
+                <h3 className="text-xl font-bold text-white tracking-tight mb-4 group-hover:text-emerald-400 transition-colors">
+                  {w.title}
+                </h3>
+
+                <p className="text-white/50 text-sm leading-relaxed mb-8 flex-1">
+                  {w.excerpt}
+                </p>
+
+                <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
+                  <div className="flex flex-wrap gap-2">
+                    {w.tags.slice(0, 2).map((tag) => (
+                      <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full border border-white/5 bg-white/5 text-white/30 font-black uppercase">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href={w.url ?? '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
                   >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Read link */}
-              <div className="pt-3" style={{ borderTop: '1px solid var(--border)' }}>
-                <a
-                  href={w.url ?? '#'}
-                  target={w.url ? '_blank' : undefined}
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold transition-colors duration-200 no-underline"
-                  style={{ color: cat.color }}
-                >
-                  Read writeup <ArrowUpRight size={13} />
-                </a>
-              </div>
-            </motion.article>
-          )
-        })}
+                    Read Full <ArrowUpRight size={14} />
+                  </a>
+                </div>
+              </motion.article>
+            )
+          })}
+        </AnimatePresence>
       </div>
 
-      {/* CTA */}
       <motion.div
-        initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
+        initial={{ opacity: 0 }} 
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className="mt-8 text-center"
+        className="mt-20 text-center"
       >
-        <p className="text-sm mb-3" style={{ color: 'var(--muted-foreground)' }}>
-          More writeups coming soon — follow for updates
+        <p className="text-sm text-white/30 font-medium mb-6">
+          Latest vulnerability research & CTF solutions
         </p>
         <a
           href="https://github.com/rushdv"
           target="_blank" rel="noopener noreferrer"
-          className="btn-sec"
-          style={{ display: 'inline-flex' }}
+          className="group inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white font-bold hover:bg-white hover:text-black transition-all"
         >
-          <Shield size={14} /> View on GitHub
+          <GithubIcon size={20} />
+          Follow Research on GitHub
         </a>
       </motion.div>
     </section>
