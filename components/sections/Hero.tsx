@@ -95,11 +95,11 @@ export default function Hero() {
 
       {/* Floating badges */}
       <div className="absolute left-8 inset-y-0 pointer-events-none hidden lg:flex flex-col justify-center gap-0 z-0">
-        {leftBadges.map((b, i) => (
+        {leftBadges.map((b) => (
           <motion.div key={b.text}
             initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 0.7, x: 0, y: [0, -12, 0] }}
-            transition={{ opacity: { delay: b.delay, duration: 0.6 }, x: { delay: b.delay, duration: 0.6 }, y: { delay: b.delay + 0.6, duration: 4.5 + i * 0.5, repeat: Infinity, ease: 'easeInOut' } }}
+            animate={{ opacity: 0.7, x: 0 }}
+            transition={{ delay: b.delay, duration: 0.6 }}
             className="mono text-xs font-semibold px-4 py-2 rounded-full mb-6 w-fit backdrop-blur-sm border border-white/10 bg-white/5"
             style={{ color: b.color }}>
             {b.text}
@@ -108,11 +108,11 @@ export default function Hero() {
       </div>
 
       <div className="absolute right-8 inset-y-0 pointer-events-none hidden lg:flex flex-col justify-center gap-0 z-0">
-        {rightBadges.map((b, i) => (
+        {rightBadges.map((b) => (
           <motion.div key={b.text}
             initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 0.7, x: 0, y: [0, -12, 0] }}
-            transition={{ opacity: { delay: b.delay, duration: 0.6 }, x: { delay: b.delay, duration: 0.6 }, y: { delay: b.delay + 0.6, duration: 4.5 + i * 0.5, repeat: Infinity, ease: 'easeInOut' } }}
+            animate={{ opacity: 0.7, x: 0 }}
+            transition={{ delay: b.delay, duration: 0.6 }}
             className="mono text-xs font-semibold px-4 py-2 rounded-full mb-6 w-fit self-end backdrop-blur-sm border border-white/10 bg-white/5"
             style={{ color: b.color }}>
             {b.text}
@@ -230,11 +230,7 @@ export default function Hero() {
         transition={{ delay: 1.5, duration: 1 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none hidden sm:block"
         style={{ color: 'var(--muted-foreground)' }}>
-        <motion.div
-           animate={{ y: [0, 10, 0] }}
-           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}>
-           <ArrowDown size={22} className="opacity-50" />
-        </motion.div>
+        <ArrowDown size={22} className="opacity-50 animate-bounce" />
       </motion.div>
     </section>
   )

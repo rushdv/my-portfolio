@@ -29,12 +29,12 @@ export default function Writeups() {
     : writeups.filter(w => w.category === active.toLowerCase())
 
   return (
-    <section id="writeups" className="py-32 px-6 max-w-7xl mx-auto" ref={ref}>
+    <section id="writeups" className="py-16 px-6 max-w-7xl mx-auto" ref={ref}>
       <motion.div 
         initial={{ opacity: 0, y: 24 }} 
         animate={inView ? { opacity: 1, y: 0 } : {}} 
         transition={{ duration: 0.6 }}
-        className="text-left mb-16"
+        className="text-left mb-8"
       >
         <SectionHeader 
           label="Insights"
@@ -58,7 +58,7 @@ export default function Writeups() {
         </div>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <AnimatePresence mode="popLayout">
           {filtered.map((w, i) => {
             const cat = categoryConfig[w.category as keyof typeof categoryConfig]
@@ -121,25 +121,6 @@ export default function Writeups() {
         </AnimatePresence>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }} 
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className="mt-20 text-center"
-      >
-        <p className="text-sm text-white/30 font-medium mb-6">
-          Latest vulnerability research & CTF solutions
-        </p>
-        <a
-          href="https://github.com/rushdv"
-          target="_blank" rel="noopener noreferrer"
-          className="group inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white font-bold hover:bg-white hover:text-black transition-all"
-        >
-          <GithubIcon size={20} />
-          Follow Research on GitHub
-        </a>
-      </motion.div>
     </section>
   )
 }

@@ -18,7 +18,7 @@ export default function Home() {
         <Hero />
       </section>
 
-      <div className="relative z-10 space-y-32 pb-32">
+      <div className="relative z-10">
         <SectionReveal>
           <About />
         </SectionReveal>

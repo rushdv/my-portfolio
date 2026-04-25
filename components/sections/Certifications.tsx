@@ -114,7 +114,7 @@ export default function Certifications() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="certifications" className="py-32 px-6 max-w-6xl mx-auto" ref={ref}>
+    <section id="certifications" className="py-16 px-6 max-w-6xl mx-auto" ref={ref}>
       <motion.div 
         initial={{ opacity: 0, y: 24 }} 
         animate={inView ? { opacity: 1, y: 0 } : {}} 

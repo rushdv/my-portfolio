@@ -17,7 +17,7 @@ export default function About() {
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <section id="about" className="py-32 px-6 max-w-7xl mx-auto" ref={ref}>
+    <section id="about" className="py-16 px-6 max-w-7xl mx-auto" ref={ref}>
       <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55 }}>
         <SectionHeader 
           label="Profile"
@@ -34,9 +34,9 @@ export default function About() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="relative flex justify-center items-center pb-8 group">
           
-          {/* Rotating Ring (Conic Gradient) */}
+          {/* Static Ring */}
           <div className="absolute inset-0 w-[320px] h-[320px] rounded-full overflow-hidden -z-10 group-hover:scale-105 transition-transform duration-700">
-            <div className="absolute inset-[-100%] bg-[conic-gradient(from_0deg,transparent_0%,#6366f1_25%,#14b8a6_50%,#6366f1_75%,transparent_100%)] animate-[spin_8s_linear_infinite]" />
+            <div className="absolute inset-0 rounded-full" style={{ background: 'conic-gradient(from 0deg, #6366f1, #14b8a6, #6366f1)', opacity: 0.3 }} />
             <div className="absolute inset-2 bg-[#0a0a0f] rounded-full" />
           </div>
 
@@ -47,28 +47,26 @@ export default function About() {
 
           {/* Floating Badges */}
           <motion.div
-            animate={{ y: [0, -12, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 0.8, x: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
             className="absolute top-4 -left-8 px-4 py-2 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shadow-xl z-20"
           >
             <span className="text-xs font-bold text-indigo-400 mono">Full-Stack</span>
           </motion.div>
 
           <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 0.8, x: 0 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
             className="absolute bottom-12 -right-8 px-4 py-2 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shadow-xl z-20"
           >
             <span className="text-xs font-bold text-teal-400 mono">Security</span>
           </motion.div>
 
-          <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute -top-6 right-4 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 backdrop-blur-md z-20"
-          >
+          <div className="absolute -top-6 right-4 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 backdrop-blur-md z-20">
             <Shield size={14} className="text-indigo-400" />
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Text */}

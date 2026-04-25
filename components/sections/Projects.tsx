@@ -50,7 +50,7 @@ export default function Projects() {
   }, [])
 
   return (
-    <section id="projects" className="py-32 px-6 max-w-7xl mx-auto relative" ref={ref}>
+    <section id="projects" className="py-16 px-6 max-w-7xl mx-auto relative" ref={ref}>
       <div id="security" style={{ position: 'absolute', marginTop: -80 }} />
       
       {/* Background Decor */}
@@ -129,11 +129,10 @@ export default function Projects() {
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        className="mt-20 flex flex-col items-center gap-6"
+        className="mt-10 flex justify-start"
       >
-        <div className="w-px h-20 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
-        <a href="/projects" className="group flex items-center gap-4 px-12 py-5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white font-black uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all">
-          Browse Repository
+        <a href="/projects" className="group flex items-center gap-3 px-8 py-4 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white font-black uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all">
+          Browse All Projects
           <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
         </a>
       </motion.div>

@@ -26,7 +26,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative bg-[#0a0a0f] border-t border-white/5 pt-24 pb-12 overflow-hidden">
+    <footer className="relative bg-[#0a0a0f] border-t border-white/5 pt-12 pb-8 overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
       
@@ -99,9 +99,9 @@ export default function Footer() {
       </div>
 
       {/* Final Copyright */}
-      <div className="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-6 mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-[10px] font-black uppercase tracking-widest text-white/20">
-          © {new Date().getFullYear()} SHIHAB SHAHRIAR RASHU — DESIGNED FOR THE ELITE
+          © {new Date().getFullYear()} SHIHAB SHAHRIAR RASHU
         </p>
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/10">

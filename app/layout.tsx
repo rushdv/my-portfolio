@@ -17,15 +17,12 @@ export const metadata: Metadata = {
 }
 
 import AmbientOrbs from '@/components/ui/AmbientOrbs'
-import CustomCursor from '@/components/ui/CustomCursor'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased font-sans" suppressHydrationWarning>
         <div className="noise-overlay" />
-        <CustomCursor />
-        
         <AmbientOrbs />
 
         <ThemeProvider>

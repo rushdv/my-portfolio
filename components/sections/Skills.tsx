@@ -112,8 +112,8 @@ function SkillCard({ cat, index }: { cat: any; index: number }) {
       {/* Shimmer Effect */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
         <div 
-          className="absolute inset-[-100%] animate-[spin_10s_linear_infinite] opacity-20"
-          style={{ background: `conic-gradient(from 0deg, transparent, ${cat.color || '#6366f1'}, transparent)` }} 
+          className="absolute inset-0 opacity-10 rounded-3xl"
+          style={{ background: `radial-gradient(circle at 50% 0%, ${cat.color || '#6366f1'}33, transparent 70%)` }} 
         />
       </div>
 
@@ -175,7 +175,7 @@ export default function Skills() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="skills" className="py-32 px-6 max-w-7xl mx-auto" ref={ref}>
+    <section id="skills" className="py-16 px-6 max-w-7xl mx-auto" ref={ref}>
       <motion.div 
         initial={{ opacity: 0, y: 24 }} 
         animate={inView ? { opacity: 1, y: 0 } : {}} 
@@ -189,11 +189,11 @@ export default function Skills() {
         />
       </motion.div>
 
-      <div className="space-y-32">
+      <div className="space-y-12">
         {/* Development Section */}
         <div>
           <SectionDivider label="Development" color="#14b8a6" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {devCategories.map((cat, i) => (
               <SkillCard key={cat.label} cat={cat} index={i} />
             ))}
@@ -203,7 +203,7 @@ export default function Skills() {
         {/* Cybersecurity Section */}
         <div>
           <SectionDivider label="Cybersecurity" color="#f43f5e" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {secCategories.map((cat, i) => (
               <SkillCard key={cat.label} cat={cat} index={i + 3} />
             ))}
