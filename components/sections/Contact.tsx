@@ -103,11 +103,11 @@ export default function Contact() {
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-medium uppercase tracking-widest" style={{ color: 'var(--muted-foreground)' }}>Name</label>
-                  <input name="name" required placeholder="John Doe" className="form-input" />
+                  <input name="name" required placeholder="Abdur Rahman" className="form-input" />
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-medium uppercase tracking-widest" style={{ color: 'var(--muted-foreground)' }}>Email</label>
-                  <input name="email" type="email" required placeholder="john@example.com" className="form-input" />
+                  <input name="email" type="email" required placeholder="name@example.com" className="form-input" />
                 </div>
               </div>
               <div className="flex flex-col gap-1.5">

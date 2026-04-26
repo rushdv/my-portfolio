@@ -19,7 +19,7 @@ export default function About() {
   return (
     <section id="about" className="py-16 px-6 max-w-7xl mx-auto" ref={ref}>
       <motion.div initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
-        <SectionHeader label="Profile" title="Who I Am" icon={User} />
+        <SectionHeader label="Profile" title="Who Am I" icon={User} />
       </motion.div>
 
       <div className="grid md:grid-cols-2 gap-12 items-center">
