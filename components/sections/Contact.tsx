@@ -8,7 +8,7 @@ import SectionHeader from '@/components/ui/SectionHeader'
 
 const contactInfo = [
   { icon: Mail, label: 'Email', value: 'shihab.zn4@gmail.com', href: 'mailto:shihab.zn4@gmail.com' },
-  { icon: MapPin, label: 'Location', value: 'Dhaka, Bangladesh 🇧🇩', href: null },
+  { icon: MapPin, label: 'Location', value: 'Dhaka, Bangladesh', href: null },
 ]
 
 const socials = [
@@ -35,189 +35,94 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-16 px-6 max-w-6xl mx-auto" ref={ref}>
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-        className="text-left"
-      >
-        <SectionHeader
-          label="Contact"
-          title="Let’s keep it simple."
-          accentColor="#818cf8"
-          icon={Send}
-        />
-        <p className="max-w-2xl text-sm leading-7" style={{ color: 'var(--muted-foreground)' }}>
-          Send a quick message with your idea and I&apos;ll get back to you soon. No clutter, just clear contact info and an easy form.
-        </p>
+    <section id="contact" className="py-16 px-6 max-w-5xl mx-auto" ref={ref}>
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
+        <SectionHeader label="Contact" title="Get in Touch" icon={Send} />
       </motion.div>
 
-      <div
-        className="mt-12 rounded-4xl border p-8 shadow-xl lg:p-10"
-        style={{
-          backgroundColor: 'var(--card)',
-          borderColor: 'var(--border)',
-          boxShadow: 'var(--shadow-lg)',
-        }}
-      >
-        <div className="grid gap-10 lg:grid-cols-2 items-start">
-          <motion.div
-            initial={{ opacity: 0, x: -18 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.55, delay: 0.15 }}
-            className="space-y-8"
-          >
-            <div className="rounded-3xl border p-6"
-              style={{ backgroundColor: 'var(--card-2)', borderColor: 'var(--border)' }}>
-              <p className="text-xs uppercase tracking-[0.35em] mb-6" style={{ color: 'var(--muted-foreground)' }}>Contact details</p>
-              <div className="space-y-5">
-                {contactInfo.map((info) => (
-                  <div key={info.label} className="space-y-2">
-                    <p className="text-[0.7rem] uppercase tracking-[0.35em]" style={{ color: 'var(--muted-foreground)' }}>{info.label}</p>
-                    {info.href ? (
-                      <a
-                        href={info.href}
-                        className="text-lg font-semibold transition"
-                        style={{ color: 'var(--foreground)' }}
-                      >
-                        {info.value}
-                      </a>
-                    ) : (
-                      <p className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>{info.value}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+      <div className="grid lg:grid-cols-2 gap-8 items-start">
+        {/* Info */}
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="flex flex-col gap-4"
+        >
+          <p className="leading-relaxed" style={{ fontSize: '0.95rem', color: 'var(--muted-foreground)' }}>
+            Have a project in mind or want to collaborate? Send me a message and I'll get back to you.
+          </p>
 
-            <div className="rounded-3xl border p-6"
-              style={{ backgroundColor: 'var(--card-2)', borderColor: 'var(--border)' }}>
-              <p className="text-xs uppercase tracking-[0.35em] mb-5" style={{ color: 'var(--muted-foreground)' }}>Stay connected</p>
-              <div className="flex flex-wrap gap-3">
-                {socials.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition"
-                    style={{
-                      borderColor: 'var(--border)',
-                      color: 'var(--foreground)',
-                      backgroundColor: 'rgba(255,255,255,0.04)',
-                    }}
-                  >
-                    <social.icon size={18} />
-                    {social.label}
+          <div className="p-5 rounded-xl flex flex-col gap-4" style={{ border: '1px solid var(--border)', background: 'var(--card)' }}>
+            {contactInfo.map((info) => (
+              <div key={info.label}>
+                <p className="text-xs font-medium uppercase tracking-widest mb-1" style={{ color: 'var(--muted-foreground)' }}>{info.label}</p>
+                {info.href ? (
+                  <a href={info.href} className="text-sm font-medium transition-colors hover:opacity-80" style={{ color: 'var(--foreground)' }}>
+                    {info.value}
                   </a>
-                ))}
+                ) : (
+                  <p className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>{info.value}</p>
+                )}
               </div>
+            ))}
+          </div>
+
+          <div className="flex gap-3">
+            {socials.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all"
+                style={{ border: '1px solid var(--border)', color: 'var(--muted-foreground)', background: 'var(--card)' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--dev-border)'; e.currentTarget.style.color = 'var(--foreground)' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted-foreground)' }}>
+                <s.icon size={16} /> {s.label}
+              </a>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Form */}
+        <motion.div
+          initial={{ opacity: 0, x: 16 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.15 }}
+        >
+          {status === 'success' ? (
+            <div className="p-8 rounded-xl text-center" style={{ border: '1px solid var(--border)', background: 'var(--card)' }}>
+              <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
+                style={{ background: 'var(--sec-dim)', color: 'var(--sec)' }}>
+                <CheckCircle2 size={24} />
+              </div>
+              <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Message sent!</h3>
+              <p className="text-sm mb-4" style={{ color: 'var(--muted-foreground)' }}>I'll reply shortly.</p>
+              <button onClick={() => setStatus('idle')} className="btn-outline text-sm px-5 py-2">
+                Send another
+              </button>
             </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 18 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.55, delay: 0.2 }}
-          >
-            {status === 'success' ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="rounded-4xl border p-8 text-center"
-                style={{
-                  backgroundColor: 'var(--card-2)',
-                  borderColor: 'var(--border)',
-                }}
-              >
-                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full"
-                  style={{ backgroundColor: 'rgba(16,185,129,0.15)', color: 'var(--sec)' }}>
-                  <CheckCircle2 size={40} />
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-medium uppercase tracking-widest" style={{ color: 'var(--muted-foreground)' }}>Name</label>
+                  <input name="name" required placeholder="John Doe" className="form-input" />
                 </div>
-                <h3 className="text-2xl font-black mb-3" style={{ color: 'var(--foreground)' }}>Message sent!</h3>
-                <p className="text-sm leading-7 mb-6" style={{ color: 'var(--muted-foreground)' }}>
-                  Thanks for reaching out. I’ll reply shortly.
-                </p>
-                <button
-                  onClick={() => setStatus('idle')}
-                  className="rounded-full px-8 py-3 text-sm font-bold transition"
-                  style={{
-                    backgroundColor: 'var(--foreground)',
-                    color: 'var(--background)',
-                  }}
-                >
-                  Send another
-                </button>
-              </motion.div>
-            ) : (
-              <form
-                onSubmit={handleSubmit}
-                className="space-y-6"
-              >
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <label className="space-y-2 text-sm" style={{ color: 'var(--foreground)' }}>
-                    <span className="block uppercase tracking-[0.25em]" style={{ color: 'var(--muted-foreground)' }}>Name</span>
-                    <input
-                      name="name"
-                      required
-                      placeholder="John Doe"
-                      className="w-full rounded-3xl border px-4 py-3 outline-none transition"
-                      style={{
-                        borderColor: 'var(--border)',
-                        backgroundColor: 'var(--card-2)',
-                        color: 'var(--foreground)',
-                      }}
-                    />
-                  </label>
-                  <label className="space-y-2 text-sm" style={{ color: 'var(--foreground)' }}>
-                    <span className="block uppercase tracking-[0.25em]" style={{ color: 'var(--muted-foreground)' }}>Email</span>
-                    <input
-                      name="email"
-                      type="email"
-                      required
-                      placeholder="john@example.com"
-                      className="w-full rounded-3xl border px-4 py-3 outline-none transition"
-                      style={{
-                        borderColor: 'var(--border)',
-                        backgroundColor: 'var(--card-2)',
-                        color: 'var(--foreground)',
-                      }}
-                    />
-                  </label>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-medium uppercase tracking-widest" style={{ color: 'var(--muted-foreground)' }}>Email</label>
+                  <input name="email" type="email" required placeholder="john@example.com" className="form-input" />
                 </div>
-
-                <label className="space-y-2 text-sm block" style={{ color: 'var(--foreground)' }}>
-                  <span className="block uppercase tracking-[0.25em]" style={{ color: 'var(--muted-foreground)' }}>Message</span>
-                  <textarea
-                    name="message"
-                    required
-                    rows={5}
-                    placeholder="Tell me about your project..."
-                    className="w-full rounded-3xl border px-4 py-3 outline-none transition resize-none"
-                    style={{
-                      borderColor: 'var(--border)',
-                      backgroundColor: 'var(--card-2)',
-                      color: 'var(--foreground)',
-                    }}
-                  />
-                </label>
-
-                <button
-                  type="submit"
-                  disabled={status === 'loading'}
-                  className="w-full rounded-full px-5 py-4 text-sm font-black uppercase tracking-[0.18em] transition"
-                  style={{
-                    backgroundColor: 'var(--dev)',
-                    color: 'var(--card)',
-                  }}
-                >
-                  {status === 'loading' ? 'Sending…' : 'Send message'}
-                </button>
-              </form>
-            )}
-          </motion.div>
-        </div>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium uppercase tracking-widest" style={{ color: 'var(--muted-foreground)' }}>Message</label>
+                <textarea name="message" required rows={5} placeholder="Tell me about your project..." className="form-input resize-none" />
+              </div>
+              <button type="submit" disabled={status === 'loading'} className="btn-dev w-full justify-center py-3">
+                {status === 'loading' ? 'Sending…' : 'Send Message'}
+              </button>
+              {status === 'error' && (
+                <p className="text-xs text-center" style={{ color: '#f87171' }}>Something went wrong. Please try again.</p>
+              )}
+            </form>
+          )}
+        </motion.div>
       </div>
     </section>
   )

@@ -7,29 +7,23 @@ interface SectionRevealProps {
   children: ReactNode
   delay?: number
   className?: string
-  width?: "fit-content" | "100%"
+  width?: 'fit-content' | '100%'
 }
 
-export default function SectionReveal({ children, delay = 0, className = "", width = "100%" }: SectionRevealProps) {
+export default function SectionReveal({ children, delay = 0, className = '', width = '100%' }: SectionRevealProps) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-15% 0px -15% 0px" })
+  // amount:0.05 means trigger as soon as 5% of the section enters viewport
+  const isInView = useInView(ref, { once: true, amount: 0.05 })
 
   return (
-    <div ref={ref} style={{ position: "relative", width }} className={className}>
+    <div ref={ref} style={{ position: 'relative', width }} className={className}>
       <motion.div
-        initial={{ opacity: 0, y: 40, filter: 'blur(10px)', scale: 0.98 }}
-        animate={isInView ? { 
-          opacity: 1, 
-          y: 0, 
-          filter: 'blur(0px)', 
-          scale: 1 
-        } : {}}
-        transition={{ 
-          duration: 0.8, 
-          delay, 
+        initial={{ opacity: 0, y: 24 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+        transition={{
+          duration: 0.6,
+          delay,
           ease: [0.22, 1, 0.36, 1],
-          opacity: { duration: 1 },
-          filter: { duration: 1.2 }
         }}
       >
         {children}

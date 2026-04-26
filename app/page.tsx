@@ -11,7 +11,7 @@ import SectionReveal from '@/components/ui/SectionReveal'
 
 export default function Home() {
   return (
-    <main className="relative bg-[#0a0a0f]">
+    <main className="relative" style={{ background: 'var(--background)' }}>
       {/* Hero doesn't need SectionReveal usually as it's above the fold, 
           but its internal elements have their own entrance animations. */}
       <section className="relative z-10">

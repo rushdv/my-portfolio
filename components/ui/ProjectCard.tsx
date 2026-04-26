@@ -1,64 +1,87 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ExternalLink, ArrowUpRight } from 'lucide-react'
 import type { Project } from '@/types'
 import { GithubIcon } from '@/components/icons/SocialIcons'
 
 export default function ProjectCard({ project, index = 0, featured = false }: { project: Project; index?: number; featured?: boolean }) {
+  const [hovered, setHovered] = useState(false)
+
   return (
     <motion.div
-      className={`group relative flex flex-col rounded-3xl overflow-hidden border border-white/10 bg-[#0d1117] transition-all duration-500 hover:border-white/20 hover:-translate-y-2 h-full ${featured ? 'shadow-2xl shadow-indigo-500/10' : ''}`}
-      initial={false}
+      className="group relative flex flex-col rounded-xl overflow-hidden h-full"
+      style={{
+        border: '1px solid var(--border)',
+        background: 'var(--card)',
+        transition: 'border-color 0.2s ease, transform 0.2s ease',
+      }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
+      onMouseEnter={e => {
+        setHovered(true)
+        const el = e.currentTarget as HTMLElement
+        el.style.borderColor = 'var(--dev-border)'
+        el.style.transform = 'translateY(-3px)'
+      }}
+      onMouseLeave={e => {
+        setHovered(false)
+        const el = e.currentTarget as HTMLElement
+        el.style.borderColor = 'var(--border)'
+        el.style.transform = 'translateY(0)'
+      }}
     >
-      {/* Mock Browser Frame */}
-      <div className={`relative overflow-hidden flex-shrink-0 ${featured ? 'flex-1 min-h-[300px]' : 'aspect-video'}`}>
-        {/* Browser Top Bar */}
-        <div className="absolute top-0 inset-x-0 h-9 bg-black/40 backdrop-blur-xl border-b border-white/5 flex items-center px-4 gap-2 z-20">
-          <div className="flex gap-1.5 leading-none">
-            <div className="w-2 h-2 rounded-full bg-red-500/30" />
-            <div className="w-2 h-2 rounded-full bg-amber-500/30" />
-            <div className="w-2 h-2 rounded-full bg-emerald-500/30" />
-          </div>
-          <div className="flex-1 h-4 bg-white/5 rounded-full border border-white/5 mx-4" />
+      {/* Image / Preview */}
+      <div className={`relative overflow-hidden flex-shrink-0 ${featured ? 'min-h-[220px]' : 'aspect-video'}`}>
+        {/* Browser bar */}
+        <div className="absolute top-0 inset-x-0 h-8 flex items-center px-3 gap-1.5 z-10"
+          style={{ background: 'var(--card-2)', borderBottom: '1px solid var(--border)' }}>
+          {/* Traffic light dots — colored on hover */}
+          <div className="w-2.5 h-2.5 rounded-full transition-colors duration-200"
+            style={{ background: hovered ? '#ff5f57' : 'var(--border)' }} />
+          <div className="w-2.5 h-2.5 rounded-full transition-colors duration-200"
+            style={{ background: hovered ? '#febc2e' : 'var(--border)' }} />
+          <div className="w-2.5 h-2.5 rounded-full transition-colors duration-200"
+            style={{ background: hovered ? '#28c840' : 'var(--border)' }} />
+          <div className="flex-1 h-3.5 rounded mx-3" style={{ background: 'var(--border)', opacity: 0.5 }} />
         </div>
 
-        {/* Project Image */}
-        <div className="w-full h-full relative pt-9 overflow-hidden">
+        <div className="w-full h-full pt-8 relative overflow-hidden">
           {project.image ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={project.image} alt={project.title}
-              className="w-full h-full object-cover transition-all duration-1000 ease-out group-hover:scale-110 grayscale-[0.5] group-hover:grayscale-0 opacity-80 group-hover:opacity-100" />
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              style={{ opacity: hovered ? 1 : 0.85 }}
+            />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-white/[0.02]">
-              <span className="mono font-black select-none text-white/5" style={{ fontSize: featured ? '6rem' : '3.5rem' }}>
-                {'{ }'}
-              </span>
-            </div>
-          )}
-          
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0d1117] to-transparent opacity-80" />
-
-          {/* Featured Badge */}
-          {featured && (
-            <div className="absolute top-12 left-6 px-3 py-1 rounded-full bg-indigo-500 text-white text-[9px] font-black uppercase tracking-widest z-30">
-              Featured Case Study
+            <div className="w-full h-full flex items-center justify-center" style={{ background: 'var(--card-2)' }}>
+              <span className="font-mono font-bold text-3xl" style={{ color: 'var(--border)' }}>{'{ }'}</span>
             </div>
           )}
 
-          {/* Hover Overlay */}
-          <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 z-30">
+          {/* Minimal bottom fade — just enough to blend into card */}
+          <div className="absolute inset-x-0 bottom-0 h-8 pointer-events-none"
+            style={{ background: 'linear-gradient(to top, var(--card), transparent)' }} />
+
+          {/* Hover action links */}
+          <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-250 z-20">
             {project.github && (
-              <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-4 rounded-full bg-white text-black hover:scale-110 transition-transform shadow-2xl">
-                <GithubIcon size={22} />
+              <a href={project.github} target="_blank" rel="noopener noreferrer"
+                className="p-2.5 rounded-lg transition-transform hover:scale-105"
+                style={{ background: 'var(--foreground)', color: 'var(--background)' }}>
+                <GithubIcon size={17} />
               </a>
             )}
             {project.live && (
-              <a href={project.live} target="_blank" rel="noopener noreferrer" className="p-4 rounded-full bg-white text-black hover:scale-110 transition-transform shadow-2xl">
-                <ExternalLink size={22} />
+              <a href={project.live} target="_blank" rel="noopener noreferrer"
+                className="p-2.5 rounded-lg transition-transform hover:scale-105"
+                style={{ background: 'var(--foreground)', color: 'var(--background)' }}>
+                <ExternalLink size={17} />
               </a>
             )}
           </div>
@@ -66,27 +89,28 @@ export default function ProjectCard({ project, index = 0, featured = false }: { 
       </div>
 
       {/* Content */}
-      <div className={`flex flex-col p-8 ${featured ? 'bg-[#0d1117]' : 'bg-[#0d1117]/80 flex-1'}`}>
-        <div className="flex items-center justify-between mb-4">
-          <h3 className={`font-black text-white tracking-tighter group-hover:text-indigo-400 transition-colors ${featured ? 'text-3xl' : 'text-xl'}`}>
+      <div className="flex flex-col p-4 flex-1">
+        <div className="flex items-start justify-between mb-1.5">
+          <h3 className="font-semibold leading-snug transition-colors"
+            style={{ fontSize: '0.95rem', color: hovered ? 'var(--dev)' : 'var(--foreground)' }}>
             {project.title}
           </h3>
-          <ArrowUpRight size={featured ? 24 : 18} className="text-white/20 group-hover:text-white/80 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+          <ArrowUpRight size={15} className="shrink-0 mt-0.5 transition-opacity"
+            style={{ color: 'var(--dev)', opacity: hovered ? 0.7 : 0 }} />
         </div>
-
-        <p className={`text-white/50 leading-relaxed mb-6 line-clamp-2 ${featured ? 'text-base' : 'text-sm'}`}>
+        <p className="leading-relaxed mb-3 flex-1 line-clamp-2"
+          style={{ fontSize: '0.82rem', color: 'var(--muted-foreground)' }}>
           {project.description}
         </p>
-
-        {/* Tags */}
-        <div className="mt-auto flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5 mt-auto">
           {project.tags.slice(0, featured ? 5 : 3).map((tag) => (
-            <span key={tag} className="text-[10px] px-3 py-1.5 rounded-full border border-white/5 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-colors uppercase font-black tracking-widest">
+            <span key={tag} className="px-2 py-0.5 rounded font-medium"
+              style={{ fontSize: '0.7rem', background: 'var(--dev-dim)', color: 'var(--dev)', border: '1px solid var(--dev-border)' }}>
               {tag}
             </span>
           ))}
           {!featured && project.tags.length > 3 && (
-            <span className="text-[10px] px-2 py-1 text-white/20 font-black">
+            <span style={{ fontSize: '0.7rem', color: 'var(--muted-foreground)', padding: '2px 4px' }}>
               +{project.tags.length - 3}
             </span>
           )}

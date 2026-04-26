@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { LucideIcon } from 'lucide-react'
 
 interface SectionHeaderProps {
@@ -10,25 +9,18 @@ interface SectionHeaderProps {
   icon?: LucideIcon
 }
 
-export default function SectionHeader({ label, title, accentColor = '#6366f1', icon: Icon }: SectionHeaderProps) {
+export default function SectionHeader({ label, title, accentColor = 'var(--dev)', icon: Icon }: SectionHeaderProps) {
   return (
-    <div className="mb-10 text-left">
-      <div
-        className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em] mb-3"
-        style={{ color: accentColor }}
-      >
-        {Icon && <Icon size={14} />}
+    <div className="mb-10">
+      <div className="flex items-center gap-2 mb-3 font-semibold uppercase tracking-widest"
+        style={{ fontSize: '0.72rem', color: accentColor }}>
+        {Icon && <Icon size={13} />}
         <span>{label}</span>
       </div>
-      <div className="flex flex-col gap-3">
-        <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tighter">
-          {title}
-        </h2>
-        <div
-          className="w-12 h-1 rounded-full"
-          style={{ backgroundColor: `${accentColor}80` }}
-        />
-      </div>
+      <h2 className="font-bold tracking-tight" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', color: 'var(--foreground)', lineHeight: 1.15 }}>
+        {title}
+      </h2>
+      <div className="mt-3 w-10 h-0.5 rounded-full" style={{ backgroundColor: accentColor, opacity: 0.5 }} />
     </div>
   )
 }

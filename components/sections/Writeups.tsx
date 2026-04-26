@@ -3,14 +3,13 @@
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { ArrowUpRight, Clock, Shield, BookOpen, FlaskConical } from 'lucide-react'
-import { GithubIcon } from '@/components/icons/SocialIcons'
 import { writeups } from '@/content/writeups'
 import SectionHeader from '@/components/ui/SectionHeader'
 
 const categoryConfig = {
-  ctf:      { label: 'CTF',      icon: Shield,       color: '#34d399' },
-  blog:     { label: 'Blog',     icon: BookOpen,     color: '#6366f1' },
-  research: { label: 'Research', icon: FlaskConical, color: '#f43f5e' },
+  ctf:      { label: 'CTF',      icon: Shield,       color: 'var(--sec)',  dim: 'var(--sec-dim)',  border: 'var(--sec-border)' },
+  blog:     { label: 'Blog',     icon: BookOpen,     color: 'var(--dev)',  dim: 'var(--dev-dim)',  border: 'var(--dev-border)' },
+  research: { label: 'Research', icon: FlaskConical, color: 'var(--dev-2)', dim: 'rgba(129,140,248,0.08)', border: 'rgba(129,140,248,0.18)' },
 }
 
 const tabs = ['All', 'CTF', 'Blog', 'Research'] as const
@@ -24,95 +23,69 @@ export default function Writeups() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
-  const filtered = active === 'All'
-    ? writeups
-    : writeups.filter(w => w.category === active.toLowerCase())
+  const filtered = active === 'All' ? writeups : writeups.filter(w => w.category === active.toLowerCase())
 
   return (
     <section id="writeups" className="py-16 px-6 max-w-7xl mx-auto" ref={ref}>
-      <motion.div 
-        initial={{ opacity: 0, y: 24 }} 
-        animate={inView ? { opacity: 1, y: 0 } : {}} 
-        transition={{ duration: 0.6 }}
-        className="text-left mb-8"
-      >
-        <SectionHeader 
-          label="Insights"
-          title="Security Writeups"
-          accentColor="#f43f5e"
-          icon={BookOpen}
-        />
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }} className="mb-8">
+        <SectionHeader label="Insights" title="Security Writeups" icon={BookOpen} accentColor="var(--sec)" />
 
-        {/* Tab switcher */}
-        <div className="mt-10 inline-flex p-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+        <div className="inline-flex p-1 rounded-lg gap-1"
+          style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
           {tabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActive(tab)}
-              className={`px-8 py-2.5 rounded-full text-sm font-bold transition-all relative ${active === tab ? 'text-black' : 'text-white/60 hover:text-white'}`}
-            >
-              {active === tab && <motion.div layoutId="writeup-pill" className="absolute inset-0 bg-white rounded-full z-0" />}
-              <span className="relative z-10">{tab}</span>
+            <button key={tab} onClick={() => setActive(tab)}
+              className="px-4 py-1.5 rounded-md text-xs font-semibold transition-all"
+              style={{
+                background: active === tab ? 'var(--dev)' : 'transparent',
+                color: active === tab ? '#fff' : 'var(--muted-foreground)',
+                border: 'none', cursor: 'pointer',
+              }}>
+              {tab}
             </button>
           ))}
         </div>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <AnimatePresence mode="popLayout">
           {filtered.map((w, i) => {
             const cat = categoryConfig[w.category as keyof typeof categoryConfig]
             const Icon = cat.icon
-
             return (
               <motion.article
                 key={w.slug}
                 layout
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="group relative flex flex-col p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md hover:border-white/20 transition-all overflow-hidden"
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{ duration: 0.3, delay: i * 0.04 }}
+                className="flex flex-col p-5 rounded-xl transition-all duration-200"
+                style={{ border: '1px solid var(--border)', background: 'var(--card)' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = cat.border }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)' }}
               >
-                {/* Side Accent */}
-                <div className="absolute left-0 top-0 bottom-0 w-[2px] opacity-0 group-hover:opacity-100 transition-opacity" style={{ backgroundColor: cat.color }} />
-
-                <div className="flex items-start justify-between gap-4 mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/5 border border-white/10" style={{ color: cat.color }}>
-                      <Icon size={16} />
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-md flex items-center justify-center"
+                      style={{ background: cat.dim, color: cat.color, border: `1px solid ${cat.border}` }}>
+                      <Icon size={13} />
                     </div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-white/30">{cat.label}</span>
+                    <span className="text-xs font-semibold" style={{ color: cat.color }}>{cat.label}</span>
                   </div>
-                  <div className="flex flex-col items-end gap-1 text-[10px] font-black uppercase tracking-widest text-white/20">
-                    <span className="flex items-center gap-1.5"><Clock size={12} /> {w.readTime}</span>
-                    <span>{formatDate(w.date)}</span>
+                  <div className="flex items-center gap-1 text-xs" style={{ color: 'var(--muted-foreground)' }}>
+                    <Clock size={11} /> {w.readTime}
                   </div>
                 </div>
 
-                <h3 className="text-xl font-bold text-white tracking-tight mb-4 group-hover:text-emerald-400 transition-colors">
-                  {w.title}
-                </h3>
+                <h3 className="font-semibold leading-snug mb-2" style={{ fontSize: '0.95rem', color: 'var(--foreground)' }}>{w.title}</h3>
+                <p className="leading-relaxed flex-1 mb-4" style={{ fontSize: '0.85rem', color: 'var(--muted-foreground)' }}>{w.excerpt}</p>
 
-                <p className="text-white/50 text-sm leading-relaxed mb-8 flex-1">
-                  {w.excerpt}
-                </p>
-
-                <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
-                  <div className="flex flex-wrap gap-2">
-                    {w.tags.slice(0, 2).map((tag) => (
-                      <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full border border-white/5 bg-white/5 text-white/30 font-black uppercase">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <a
-                    href={w.url ?? '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
-                  >
-                    Read Full <ArrowUpRight size={14} />
+                <div className="flex items-center justify-between pt-3" style={{ borderTop: '1px solid var(--border)' }}>
+                  <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>{formatDate(w.date)}</span>
+                  <a href={w.url ?? '#'} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-medium transition-opacity hover:opacity-75"
+                    style={{ color: 'var(--dev)' }}>
+                    Read <ArrowUpRight size={12} />
                   </a>
                 </div>
               </motion.article>
@@ -120,7 +93,6 @@ export default function Writeups() {
           })}
         </AnimatePresence>
       </div>
-
     </section>
   )
 }

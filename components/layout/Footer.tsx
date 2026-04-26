@@ -21,54 +21,46 @@ const socials = [
 ]
 
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
   return (
-    <footer className="relative bg-[#0a0a0f] border-t border-white/5 pt-12 pb-8 overflow-hidden">
-      {/* Background Decor */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
-      
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-8">
-        
-        {/* Brand & Mission */}
-        <div className="lg:col-span-2 flex flex-col gap-6">
-          <Link href="/" className="group flex items-center gap-2 text-2xl font-black tracking-tighter text-white">
-            <span className="text-indigo-500 group-hover:rotate-12 transition-transform">&lt;</span>
-            SHIHAB
-            <span className="text-emerald-500 group-hover:-rotate-12 transition-transform">/&gt;</span>
+    <footer className="border-t pt-12 pb-8" style={{ borderColor: 'var(--border)', background: 'var(--background)' }}>
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-8">
+
+        {/* Brand */}
+        <div className="flex flex-col gap-5">
+          <Link href="/" className="group flex items-center gap-1 text-xl font-bold tracking-tight text-[var(--foreground)]">
+            <span className="text-[var(--dev)] font-mono">&lt;</span>
+            <span>Shihab</span>
+            <span className="text-[var(--sec)] font-mono">/&gt;</span>
           </Link>
-          <p className="max-w-sm text-white/50 text-sm leading-relaxed">
-            Architecting secure, high-performance digital experiences. 
-            Focused on the intersection of modern full-stack development and advanced security research.
+          <p className="leading-relaxed max-w-xs" style={{ fontSize: '0.9rem', color: 'var(--muted-foreground)' }}>
+            Full-Stack Developer & Security Researcher based in Bangladesh.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {socials.map((s) => (
-              <a 
-                key={s.label} 
-                href={s.href} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="p-2.5 rounded-xl bg-white/5 border border-white/5 text-white/40 hover:text-white hover:border-white/10 hover:-translate-y-1 transition-all"
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="w-9 h-9 flex items-center justify-center rounded-lg border border-[var(--border)] text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--dev-border)] transition-all"
               >
-                <s.icon size={18} />
+                <s.icon size={16} />
               </a>
             ))}
           </div>
         </div>
 
         {/* Navigation */}
-        <div className="flex flex-col gap-6">
-          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">Navigation</h4>
-          <ul className="grid grid-cols-2 gap-y-3 gap-x-8">
+        <div className="flex flex-col gap-4">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--muted-foreground)]">Navigation</p>
+          <ul className="grid grid-cols-2 gap-y-2.5 gap-x-6">
             {quickLinks.map((l) => (
               <li key={l.href}>
-                <a 
-                  href={l.href} 
-                  className="text-sm font-medium text-white/40 hover:text-white transition-colors flex items-center gap-1.5 group"
+                <a
+                  href={l.href}
+                  className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
                 >
-                  <ArrowUpRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-indigo-500" />
                   {l.label}
                 </a>
               </li>
@@ -76,40 +68,34 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Status & CTA */}
-        <div className="flex flex-col gap-6">
-          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">System Status</h4>
-          <div className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
-              <span className="text-xs font-bold text-white tracking-tight">Available for hire</span>
-            </div>
-            <p className="text-[10px] text-white/30 font-medium leading-relaxed">
-              Open to high-impact roles in cybersecurity and engineering.
-            </p>
-            <button 
-              onClick={scrollToTop}
-              className="w-full py-2.5 rounded-xl bg-white text-black font-black uppercase tracking-widest text-[10px] hover:bg-indigo-500 hover:text-white transition-all active:scale-95"
-            >
-              Back to Top
-            </button>
-          </div>
+        {/* Contact */}
+        <div className="flex flex-col gap-4">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--muted-foreground)]">Get in touch</p>
+          <a
+            href="mailto:shihab.zn4@gmail.com"
+            className="text-sm text-[var(--foreground)] hover:text-[var(--dev)] transition-colors"
+          >
+            shihab.zn4@gmail.com
+          </a>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--dev)] hover:opacity-80 transition-opacity"
+          >
+            View Resume <ArrowUpRight size={14} />
+          </a>
         </div>
 
       </div>
 
-      {/* Final Copyright */}
-      <div className="max-w-7xl mx-auto px-6 mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-[10px] font-black uppercase tracking-widest text-white/20">
-          © {new Date().getFullYear()} SHIHAB SHAHRIAR RASHU
+      <div className="max-w-7xl mx-auto px-6 mt-10 pt-6 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p className="text-xs text-[var(--muted-foreground)]">
+          © {new Date().getFullYear()} Shihab Shahriar Rashu
         </p>
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/10">
-            <Code2 size={12} /> Full-Stack
-          </div>
-          <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/10">
-            <Shield size={12} /> Security
-          </div>
+        <div className="flex items-center gap-5 text-xs text-[var(--muted-foreground)]">
+          <span className="flex items-center gap-1.5"><Code2 size={12} /> Full-Stack</span>
+          <span className="flex items-center gap-1.5"><Shield size={12} /> Security</span>
         </div>
       </div>
     </footer>
