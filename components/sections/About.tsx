@@ -9,7 +9,7 @@ import SectionHeader from '@/components/ui/SectionHeader'
 const stats = [
   { value: 3, label: 'Years Dev', suffix: '+' },
   { value: 70, label: 'Repos', suffix: '+' },
-  { value: 'CEH', label: 'Certified', suffix: '' },
+  { value: 10, label: 'Projects', suffix: '+' },
 ]
 
 export default function About() {
@@ -88,7 +88,7 @@ export default function About() {
               style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
               <Shield size={18} className="shrink-0 mt-0.5" style={{ color: 'var(--sec)' }} />
               <p className="leading-relaxed" style={{ fontSize: '0.9rem', color: 'var(--muted-foreground)' }}>
-                CEH certified with hands-on penetration testing experience. I bring a <span style={{ color: 'var(--foreground)' }}>security mindset</span> to everything I build.
+                Hands-on penetration testing and vulnerability assessment experience. I bring a <span style={{ color: 'var(--foreground)' }}>security mindset</span> to everything I build.
               </p>
             </div>
           </div>
