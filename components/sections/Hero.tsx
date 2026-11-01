@@ -2,8 +2,9 @@
 
 import { motion, type Variants } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { ArrowDown, Terminal, Shield, Lock } from 'lucide-react'
+import { ArrowDown, Terminal, Shield, Lock, FileText } from 'lucide-react'
 import { GithubIcon, LinkedinIcon, TwitterXIcon } from '@/components/icons/SocialIcons'
+import { useResumeModal } from '@/components/ui/ResumeContext'
 
 const socials = [
   { icon: GithubIcon, href: 'https://github.com/rushdv', label: 'GitHub' },
@@ -57,7 +58,12 @@ function Typewriter() {
       t = setTimeout(() => setDeleting(true), 2200)
     else if (deleting && displayed.length > 0)
       t = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 32)
-    else { setDeleting(false); setIdx(i => (i + 1) % roles.length) }
+    else {
+      t = setTimeout(() => {
+        setDeleting(false)
+        setIdx(i => (i + 1) % roles.length)
+      }, 0)
+    }
     return () => clearTimeout(t)
   }, [displayed, deleting, idx])
 
@@ -70,6 +76,8 @@ function Typewriter() {
 }
 
 export default function Hero() {
+  const { openResume } = useResumeModal()
+
   return (
     <section
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden w-full"
@@ -127,9 +135,15 @@ export default function Hero() {
             </motion.p>
 
             <motion.div variants={item} className="flex flex-wrap gap-3">
-              <a href="#projects" className="btn-dev">
+              <a href="#projects" className="btn-dev flex items-center gap-2">
                 <Terminal size={16} /> View My Work
               </a>
+              <button
+                onClick={openResume}
+                className="btn-outline flex items-center gap-2 cursor-pointer"
+              >
+                <FileText size={16} /> Resume
+              </button>
               <a href="#contact" className="btn-outline">
                 Contact Me
               </a>

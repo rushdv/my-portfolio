@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowLeft, Code2, Shield } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { projects } from '@/content/projects'
 import ProjectCard from '@/components/ui/ProjectCard'

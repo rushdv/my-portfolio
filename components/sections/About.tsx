@@ -2,9 +2,10 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Download, MapPin, Shield, Code2, User } from 'lucide-react'
+import { Download, Eye, MapPin, Shield, Code2, User } from 'lucide-react'
 import CountUp from '@/components/ui/CountUp'
 import SectionHeader from '@/components/ui/SectionHeader'
+import { useResumeModal } from '@/components/ui/ResumeContext'
 
 const stats = [
   { value: 3, label: 'Years Dev', suffix: '+' },
@@ -13,6 +14,7 @@ const stats = [
 ]
 
 export default function About() {
+  const { openResume } = useResumeModal()
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
@@ -28,9 +30,30 @@ export default function About() {
           initial={{ opacity: 0, scale: 0.97 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="relative flex justify-center items-center group"
+          className="flex flex-col items-center justify-center gap-3 group"
         >
-          <div className="relative w-[260px] h-[260px] rounded-2xl overflow-hidden transition-all duration-500"
+          {/* Badges side by side above the image */}
+          <div className="flex items-center gap-2.5">
+            <span
+              className="px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-sm backdrop-blur-md transition-all duration-300 hover:scale-105"
+              style={{ background: 'var(--sec-dim)', color: 'var(--sec)', border: '1px solid var(--sec-border)' }}
+            >
+              <Shield size={13} />
+              <span>Security</span>
+            </span>
+
+            <span
+              className="px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-sm backdrop-blur-md transition-all duration-300 hover:scale-105"
+              style={{ background: 'var(--dev-dim)', color: 'var(--dev)', border: '1px solid var(--dev-border)' }}
+            >
+              <Code2 size={13} />
+              <span>Full-Stack Dev</span>
+            </span>
+          </div>
+
+          {/* Profile Image */}
+          <div
+            className="relative w-[260px] h-[260px] sm:w-[280px] sm:h-[280px] rounded-2xl overflow-hidden transition-all duration-500 shadow-xl"
             style={{
               border: '2px solid var(--dev-border)',
               boxShadow: '0 0 0 0 var(--dev-border)',
@@ -47,14 +70,6 @@ export default function About() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/shihab.jpg" alt="Shihab Shahriar Rashu"
               className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105" />
-          </div>
-          <div className="absolute -bottom-3 -right-3 px-3 py-1.5 rounded-lg text-xs font-semibold"
-            style={{ background: 'var(--dev-dim)', color: 'var(--dev)', border: '1px solid var(--dev-border)' }}>
-            Full-Stack
-          </div>
-          <div className="absolute -top-3 -left-3 px-3 py-1.5 rounded-lg text-xs font-semibold"
-            style={{ background: 'var(--sec-dim)', color: 'var(--sec)', border: '1px solid var(--sec-border)' }}>
-            Security
           </div>
         </motion.div>
 
@@ -110,9 +125,21 @@ export default function About() {
             ))}
           </div>
 
-          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn-dev w-fit">
-            <Download size={16} /> Download Resume
-          </a>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={openResume}
+              className="btn-dev w-fit flex items-center gap-2 cursor-pointer"
+            >
+              <Eye size={16} /> View Resume
+            </button>
+            <a
+              href="/resume.pdf"
+              download="Md_Shihab_Shahriar_Rashu_Resume.pdf"
+              className="btn-outline w-fit flex items-center gap-2"
+            >
+              <Download size={16} /> Download Resume
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -49,7 +49,7 @@ export default function Contact() {
           className="flex flex-col gap-4"
         >
           <p className="leading-relaxed" style={{ fontSize: '0.95rem', color: 'var(--muted-foreground)' }}>
-            Have a project in mind or want to collaborate? Send me a message and I'll get back to you.
+            Have a project in mind or want to collaborate? Send me a message and I&apos;ll get back to you.
           </p>
 
           <div className="p-5 rounded-xl flex flex-col gap-4" style={{ border: '1px solid var(--border)', background: 'var(--card)' }}>
@@ -93,7 +93,7 @@ export default function Contact() {
                 <CheckCircle2 size={24} />
               </div>
               <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Message sent!</h3>
-              <p className="text-sm mb-4" style={{ color: 'var(--muted-foreground)' }}>I'll reply shortly.</p>
+              <p className="text-sm mb-4" style={{ color: 'var(--muted-foreground)' }}>I&apos;ll reply shortly.</p>
               <button onClick={() => setStatus('idle')} className="btn-outline text-sm px-5 py-2">
                 Send another
               </button>

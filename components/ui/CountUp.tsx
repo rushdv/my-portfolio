@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { animate, useInView, useMotionValue, useTransform, motion } from 'framer-motion'
+import { animate, useInView, useMotionValue, useTransform } from 'framer-motion'
 
 interface CountUpProps {
   to: number

@@ -7,20 +7,25 @@ import { projects } from '@/content/projects'
 import ProjectCard from '@/components/ui/ProjectCard'
 import SectionHeader from '@/components/ui/SectionHeader'
 
-const securityProjects: { title: string; description: string; tags: string[]; github?: string; live?: string }[] = [
+import type { Project } from '@/types'
+
+const securityProjects: Project[] = [
   {
+    slug: 'netscope-live',
     title: 'NetScope-Live',
     description: 'Real-time network traffic visualizer using Scapy for packet capture and WebSockets to stream live data to a React frontend.',
     tags: ['Python', 'Scapy', 'WebSockets', 'React'],
     github: 'https://github.com/rushdv/NetScope-Live',
   },
   {
+    slug: 'encrypted-password-manager',
     title: 'Encrypted Password Manager',
     description: 'CLI password manager demonstrating encryption best practices using Python\'s cryptography library with AES encryption.',
     tags: ['Python', 'Cryptography', 'AES', 'CLI'],
     github: 'https://github.com/rushdv/encrypted-password-manager',
   },
   {
+    slug: 'securepass',
     title: 'SecurePass Manager',
     description: 'React-based password manager with client-side encryption and a clean UI. No data leaves the browser.',
     tags: ['React', 'CryptoJS', 'Framer Motion'],
@@ -88,7 +93,7 @@ export default function Projects() {
             securityProjects.map((p, i) => (
               <ProjectCard
                 key={p.title}
-                project={{ title: p.title, description: p.description, tags: p.tags, github: p.github, live: p.live, image: '', slug: p.title.toLowerCase().replace(/ /g, '-') } as any}
+                project={p}
                 index={i}
               />
             ))

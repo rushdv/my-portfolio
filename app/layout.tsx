@@ -8,15 +8,25 @@ import ScrollProgress from '@/components/ui/ScrollProgress'
 import BackToTop from '@/components/ui/BackToTop'
 
 export const metadata: Metadata = {
-  title: 'Shihab Shahriar Rashu — Full Stack Developer & Security Researcher',
+  title: 'Shihab Shahriar Rashu | Full Stack Developer',
   description: 'Full-Stack Developer and Security Researcher based in Bangladesh. Building secure, scalable web applications with React, Node.js, Python, and FastAPI.',
   icons: {
-    icon: '/shihab.jpg',
-    apple: '/shihab.jpg',
+    icon: [
+      { url: '/icon.jpg', type: 'image/jpeg' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/shihab.jpg', type: 'image/jpeg' },
+    ],
+    apple: [
+      { url: '/apple-icon.jpg', type: 'image/jpeg' },
+      { url: '/shihab.jpg', type: 'image/jpeg' },
+    ],
+    shortcut: '/favicon.ico',
   },
 }
 
 import AmbientOrbs from '@/components/ui/AmbientOrbs'
+import { ResumeProvider } from '@/components/ui/ResumeContext'
+import ResumeModal from '@/components/ui/ResumeModal'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -26,11 +36,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AmbientOrbs />
 
         <ThemeProvider>
-          <ScrollProgress />
-          <Navbar />
-          {children}
-          <Footer />
-          <BackToTop />
+          <ResumeProvider>
+            <ScrollProgress />
+            <Navbar />
+            {children}
+            <Footer />
+            <BackToTop />
+            <ResumeModal />
+          </ResumeProvider>
         </ThemeProvider>
         
         <Analytics />

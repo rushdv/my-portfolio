@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, FileText, Eye, Download } from 'lucide-react'
 import Link from 'next/link'
 import ThemeToggle from './ThemeToggle'
+import { useResumeModal } from '@/components/ui/ResumeContext'
 
 const links = [
   { href: '#about',        label: 'About' },
@@ -15,6 +16,7 @@ const links = [
 ]
 
 export default function Navbar() {
+  const { openResume } = useResumeModal()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -63,15 +65,13 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex btn-dev"
+          <button
+            onClick={openResume}
+            className="hidden md:inline-flex btn-dev items-center gap-1.5 cursor-pointer"
             style={{ padding: '7px 16px', fontSize: '0.8rem', borderRadius: '7px' }}
           >
-            Resume
-          </a>
+            <FileText size={14} /> Resume
+          </button>
           <button
             className="md:hidden p-2 rounded-md transition-colors"
             style={{ color: 'var(--muted-foreground)', background: 'none', border: 'none', cursor: 'pointer' }}
@@ -100,6 +100,25 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
+          <div className="pt-2 flex items-center gap-2 border-t border-[var(--border)] mt-2">
+            <button
+              onClick={() => {
+                setOpen(false)
+                openResume()
+              }}
+              className="btn-dev text-xs flex-1 text-center py-2 flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <Eye size={14} /> View Resume
+            </button>
+            <a
+              href="/resume.pdf"
+              download="Md_Shihab_Shahriar_Rashu_Resume.pdf"
+              onClick={() => setOpen(false)}
+              className="btn-outline text-xs flex-1 text-center py-2 flex items-center justify-center gap-1.5"
+            >
+              <Download size={14} /> Download
+            </a>
+          </div>
         </div>
       )}
     </header>

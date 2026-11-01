@@ -1,8 +1,9 @@
 'use client'
 
-import { ArrowUpRight, Shield, Code2, Mail } from 'lucide-react'
+import { ArrowUpRight, Shield, Code2, Mail, Download } from 'lucide-react'
 import Link from 'next/link'
 import { GithubIcon, LinkedinIcon, TwitterXIcon } from '@/components/icons/SocialIcons'
+import { useResumeModal } from '@/components/ui/ResumeContext'
 
 const quickLinks = [
   { href: '#about', label: 'About' },
@@ -21,6 +22,7 @@ const socials = [
 ]
 
 export default function Footer() {
+  const { openResume } = useResumeModal()
   return (
     <footer className="border-t pt-12 pb-8" style={{ borderColor: 'var(--border)', background: 'var(--background)' }}>
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-8">
@@ -77,14 +79,22 @@ export default function Footer() {
           >
             shihab.zn4@gmail.com
           </a>
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--dev)] hover:opacity-80 transition-opacity"
-          >
-            View Resume <ArrowUpRight size={14} />
-          </a>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={openResume}
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--dev)] hover:opacity-80 transition-opacity cursor-pointer bg-transparent border-0 p-0"
+            >
+              View Resume <ArrowUpRight size={14} />
+            </button>
+            <span className="text-[var(--muted-foreground)]">•</span>
+            <a
+              href="/resume.pdf"
+              download="Md_Shihab_Shahriar_Rashu_Resume.pdf"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+            >
+              Download <Download size={14} />
+            </a>
+          </div>
         </div>
 
       </div>
